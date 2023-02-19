@@ -37,16 +37,15 @@ namespace DynamicArrayTest
         [TestMethod]
         public void TestInsert()
         {
-            int[] test_arr = new int[] { 1, 2, 4, 5 };
+            int[] test_arr = new int[]{1, 2, 4, 5};
             DArray arr = new DArray(test_arr);
             arr.Insert(3, 2);
-
+            
             Assert.AreEqual(arr[2], 3);
-
+            
             arr.Insert(6);
-
             Assert.AreEqual(arr[5], 6);
-
+            
             Assert.ThrowsException<IndexOutOfRangeException>(() => arr.Insert(10, 9));
             Assert.ThrowsException<IndexOutOfRangeException>(() => arr.Insert(10, -2));
         }

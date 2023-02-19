@@ -74,4 +74,38 @@ public static class Sorting
         MergeSort(ref arr, ref buf, 0, arr.Length - 1);
     }
 
+    private static void QuickSort(ref int[] arr, int l, int r) {
+        if (l < r) {
+            // Индекс где должен находится опорный элемент
+            int q = r;
+
+            // Значение опорного элемента
+            int x = arr[l];
+
+            for(int i = l + 1; i <= q;) {
+                if (arr[i] > x) {
+                    // swap i and q
+                    int buf_1 = arr[i];
+                    arr[i] = arr[q];
+                    arr[q] = buf_1;
+                    --q;
+                }
+                else {
+                    ++i;
+                }
+            }
+
+            int buf = arr[q];
+            arr[q] = arr[l];
+            arr[l] = buf;
+
+            QuickSort(ref arr, l, q - 1);
+            QuickSort(ref arr, q + 1, r);
+        }
+    }
+
+    public static void QuickSort(ref int[] arr) {
+
+    }
+
 }
