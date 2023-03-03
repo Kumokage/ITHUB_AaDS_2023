@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingLib", "SortingLib\SortingLib.csproj", "{FF6A554C-FB73-454D-89CA-A67169BF0505}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingLib.Tests", "SortingLib.Tests\SortingLib.Tests.csproj", "{261053AD-CEE6-42C6-B0CE-2EA341BF85A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF6A554C-FB73-454D-89CA-A67169BF0505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6A554C-FB73-454D-89CA-A67169BF0505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6A554C-FB73-454D-89CA-A67169BF0505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6A554C-FB73-454D-89CA-A67169BF0505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261053AD-CEE6-42C6-B0CE-2EA341BF85A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261053AD-CEE6-42C6-B0CE-2EA341BF85A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261053AD-CEE6-42C6-B0CE-2EA341BF85A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261053AD-CEE6-42C6-B0CE-2EA341BF85A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
