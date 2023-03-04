@@ -31,7 +31,7 @@ namespace DynamicArrayTest
             Assert.AreEqual(arr.Length, 0);
 
             arr = new DArray(6);
-            Assert.AreEqual(arr.Length, 6);
+            Assert.AreEqual(arr.Length, 0);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace DynamicArrayTest
 
             test_arr = new int[] { 108, 1, 8, 3, 13, 19, 55 };
             arr = new DArray(test_arr);
-            Assert.ThrowsException<ArgumentException>(() => arr.BinarySearch(8));
+            Assert.AreEqual(arr.BinarySearch(8), 2);
         }
 
         [TestMethod]

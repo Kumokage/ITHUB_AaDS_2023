@@ -16,24 +16,36 @@ namespace DynamicArray
         public DArray(int count)
         {
             _container = new int[count];
-            _count = count;
+            _count = 0;
+            _isSorted = false;
+
             for (int i = 0; i < count; i++)
             {
                 _container[i] = 0;
             }
-            _isSorted = false;
         }
 
         public DArray(int[] container)
         {
+            if (container.Length == 0)
+            {
+                _container = new int[0];
+            }
+            else
+            {
+                _container = new int[container.Length];
+            }
+
             _container = container;
             _count = container.Length;
+
             _isSorted = true;
             for (int i = 1; i < _count; i++)
             {
                 if (_container[i - 1] > _container[i])
                 {
                     _isSorted = false;
+                    break;
                 }
             }
         }
@@ -42,7 +54,7 @@ namespace DynamicArray
         {
             get
             {
-                if (index >= _count)
+                if (index >= _count || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -57,10 +69,7 @@ namespace DynamicArray
 
         public override int Length
         {
-            get
-            {
-                return _count;
-            }
+            get => _count;
         }
 
         public override void Insert(int value, int position)
@@ -86,13 +95,7 @@ namespace DynamicArray
 
         public override void Insert(int value)
         {
-            if (_count + 1 > _container.Length)
-            {
-                Resize();
-            }
-
-            _container[_count] = value;
-            ++_count;
+            Insert(value, _count);
         }
 
         public override void Remove(int index)
@@ -128,7 +131,7 @@ namespace DynamicArray
 
             if (!_isSorted)
             {
-                throw new ArgumentException();
+                Sort();
             }
 
             while (start <= end)
