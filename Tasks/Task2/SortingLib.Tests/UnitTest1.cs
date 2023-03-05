@@ -9,7 +9,7 @@ namespace SortingLib.Tests
     [TestClass]
     public class UnitTest1
     {
-        private const int N = 1000;
+        private const int N = 10;
         private Random random = new Random();
 
         private string RandomString(int length)

@@ -147,6 +147,7 @@ namespace SortingLib
             }
         }
 
+
         public static void QuickSort(ref string[] arr, Order order)
         {
             int orderInt = 3;
