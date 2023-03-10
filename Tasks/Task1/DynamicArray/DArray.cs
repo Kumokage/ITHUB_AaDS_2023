@@ -1,169 +1,225 @@
 using System;
-namespace DynamicArray;
 
-public class DArray : Array
+namespace DynamicArray
 {
-    // _count количество элементов в массиве
+    public class DArray : Array
+    {
+        private bool _isSorted = false;
 
-    private bool _isSorted = false;
-
-    public DArray() {
-        _container = new int[1];
-        _count = 0;
-    }
-
-    public DArray(int count) {
-        _container = new int[count];
-        _count = 0;
-    }
-
-    public DArray(int[] container) {
-        if (container.Length == 0) {
+        public DArray()
+        {
             _container = new int[1];
-        }
-        else{
-            _container = new int[container.Length];
-        }
-        
-        _count = container.Length;
-        for(int i = 0; i < _count; ++i) {
-            _container[i] = container[i];
-        }
-    }
-
-    public override int this[int index]
-    {
-        get {
-            if (index >= _count || index < 0) {
-                throw new IndexOutOfRangeException();
-            }
-
-            return _container[index];
-        }
-        set {
-            Insert(value, index);
-        }
-    }
-
-    public override int Length
-    {
-        get {
-            return _count;
-        }
-    }
-
-    private void Resize() {
-        int[] new_container = new int[_container.Length * 2];
-        for (int i = 0; i < _count; ++i ) {
-            new_container[i] =  _container[i];
+            _count = 0;
+            _isSorted = false;
         }
 
-        _container = new_container;
-    }
-
-    public override void Insert(int value, int position)
-    {
-        if (position > _count || position < 0) {
-            throw new IndexOutOfRangeException("Incorrect position value");
-        }
-
-        if (_count == _container.Length) {
-            Resize();
-        }
-
-        for (int i = _count - 1; i >= position; --i) {
-            _container[i + 1] = _container[i];
-        }
-
-        _container[position] = value;
-        ++_count;
-        _isSorted = false;
-    }
-
-    public override void Insert(int value)
-    {
-        Insert(value, _count);
-    }
-
-    public override void Remove(int index)
-    {
-        if(index >= _count || index < 0) {
-            throw new IndexOutOfRangeException();
-        } 
-
-        for (int i = index; i < _count - 1; ++i ) {
-            _container[i] = _container[i + 1];
-        }
-
-        --_count;
-    }
-
-    public override void Remove()
-    {
-        --_count;
-    }
-
-    public override int BinarySearch(int value)
-    {
-        int start = 0;
-        int end = _count;
-        int mid;
-
-        if (!_isSorted)
+        public DArray(int count)
         {
-            Sort();
-        }
+            _container = new int[count];
+            _count = 0;
+            _isSorted = false;
 
-        while (start <= end)
-        {
-            mid = (start + end) / 2;
-
-            if (_container[mid] == value)
+            for (int i = 0; i < count; i++)
             {
-                return mid;
-            }
-
-            if (value > _container[mid])
-            {
-                start = mid + 1;
-            }
-
-            if (value < _container[mid])
-            {
-                end = mid - 1;
+                _container[i] = 0;
             }
         }
 
-        throw new ArgumentException("No such value");
-    }
-
-    public override int LinearSearch(int value)
-    {
-        for (int i = 0; i < _count; i++) 
-        { 
-            if (value == _container[i]) 
-            { 
-                return i; 
-            } 
-        } 
-        
-        throw new ArgumentException("Incorret value");
-    }
-
-    public override void Sort()
-    {
-        for (int k = _count; k > 0; --k)
+        public DArray(int[] container)
         {
-            for (int i = 0; i < k - 1; i++)
+            if (container.Length == 0)
             {
-                if (_container[i] > _container[i + 1])
+                _container = new int[0];
+            }
+            else
+            {
+                _container = new int[container.Length];
+            }
+
+            _container = container;
+            _count = container.Length;
+
+            _isSorted = true;
+            for (int i = 1; i < _count; i++)
+            {
+                if (_container[i - 1] > _container[i])
                 {
-                    int temp = _container[i + 1];
-                    _container[i + 1] = _container[i];
-                    _container[i] = temp;
+                    _isSorted = false;
+                    break;
                 }
             }
         }
-        _isSorted = true;
+
+        public override int this[int index]
+        {
+            get
+            {
+                if (index >= _count || index < 0)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                return _container[index];
+            }
+            set
+            {
+                Insert(value, index);
+            }
+        }
+
+        public override int Length
+        {
+            get => _count;
+        }
+
+        public override void Insert(int value, int position)
+        {
+            if (_count + 1 >= _container.Length)
+            {
+                Resize();
+            }
+
+            if (position < 0 || position > _count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            for (int i = _count; i >= position; --i)
+            {
+                _container[i + 1] = _container[i];
+            }
+
+            _container[position] = value;
+            ++_count;
+        }
+
+        public override void Insert(int value)
+        {
+            Insert(value, _count);
+        }
+
+        public override void Remove(int index)
+        {
+            if (index >= _count || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            for (int i = index; i < _count - 1; ++i)
+            {
+                _container[i] = _container[i + 1];
+            }
+
+            --_count;
+        }
+
+        public override void Remove()
+        {
+            if (_count == 0)
+            {
+                throw new Exception("Array is empty");
+            }
+
+            --_count;
+        }
+
+        public override int BinarySearch(int value)
+        {
+            int start = 0;
+            int end = _count;
+            int mid;
+
+            if (!_isSorted)
+            {
+                Sort();
+            }
+
+            while (start <= end)
+            {
+                mid = (start + end) / 2;
+
+                if (_container[mid] == value)
+                {
+                    return mid;
+                }
+
+                if (value > _container[mid])
+                {
+                    start = mid + 1;
+                }
+
+                if (value < _container[mid])
+                {
+                    end = mid - 1;
+                }
+            }
+
+            throw new ArgumentException();
+        }
+
+        public override int LinearSearch(int value)
+        {
+            for (int i = 0; i < _count; i++)
+            {
+                if (value == _container[i])
+                {
+                    return i;
+                }
+            }
+
+            throw new ArgumentException();
+        }
+
+        public override void Sort()
+        {
+            if (_container.Length == 0)
+                return;
+
+            int[] replic = new int[_count];
+
+            MergeSort(ref _container, ref replic, 0, _count - 1);
+            _isSorted = true;
+        }
+
+        private void MergeSort(ref int[] array, ref int[] replic, int start, int end)
+        {
+            if (start >= end)
+                return;
+
+            int mid = (start + end) / 2;
+            MergeSort(ref array, ref replic, start, mid);
+            MergeSort(ref array, ref replic, mid + 1, end);
+
+            int index = start;
+            for (int i = start, j = mid + 1; i <= mid || j <= end;)
+            {
+                if (j > end || (i <= mid && array[i] < array[j]))
+                {
+                    replic[index] = array[i];
+                    ++i;
+                }
+                else
+                {
+                    replic[index] = array[j];
+                    ++j;
+                }
+                ++index;
+            }
+            for (int i = start; i <= end; ++i)
+            {
+                array[i] = replic[i];
+            }
+        }
+
+        private void Resize()
+        {
+            int[] newContainer = new int[_container.Length * 2];
+            for (int i = 0; i < _count; ++i)
+            {
+                newContainer[i] = _container[i];
+            }
+
+            _container = newContainer;
+        }
     }
 }

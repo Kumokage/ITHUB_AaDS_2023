@@ -1,108 +1,94 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DynamicArray
 {
     class Program
     {
-        static int N = 10;
-        static int[] n = new int[]{1000, 10000, 50000};
+        public delegate int SearchDel(int value);
+        public delegate void SortDel();
 
-        static Random rand = new Random(1);
-
-        public static DArray FillArr(int count) {
-            DArray arr = new DArray(count);
-            
-            for (int i = 0; i < count; ++i) {
-                arr[i] = rand.Next(100);
+        public static string TestSearchAlgo(SearchDel algo, int size)
+        {
+            double _tickAverage = 0;
+            for (int j = 0; j <= 1000; j++)
+            {
+                Stopwatch stopWatch = new Stopwatch();
+                int a = new Random().Next(size);
+                stopWatch.Start();
+                algo(a);
+                stopWatch.Stop();
+                _tickAverage += stopWatch.Elapsed.Ticks;
             }
 
-            return arr;
+            _tickAverage /= 1000;
+
+            return Convert.ToString(_tickAverage);
         }
 
-        public static string[] TestLinearSearchAlgo()
+        public static string TestSortAlgo(SortDel algo)
         {
-            string[] results = new string[n.Length];
-            Stopwatch stopWatch = new Stopwatch();
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
-
-                long count = 0;
-                for( int i = 0; i < N; ++i) {
-                    int index = rand.Next(n[current_n] + 1);
-                    int value = arr[index];
-                    stopWatch.Start();
-                    arr.LinearSearch(value);
-                    stopWatch.Stop();
-                    count += stopWatch.Elapsed.Ticks;
-                    stopWatch.Restart();
-                    Console.WriteLine($"current_n = {current_n}, i = {i} " + stopWatch.Elapsed.Ticks);
-                }
-
-                count /= N;
-                Console.WriteLine("count " + count);
-                results[current_n] = count.ToString();
+            double _tickAverage = 0;
+            for (int j = 0; j <= 100; j++)
+            {
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                algo();
+                stopWatch.Stop();
+                _tickAverage += stopWatch.Elapsed.Ticks;
             }
-            return results;
-        }
+            _tickAverage /= 1000;
 
-        public static string[] TestBinarySearchAlgo()
-        {
-            string[] results = new string[n.Length];
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
-                arr.Sort();
-
-                long count = 0;
-                for( int i = 0; i < N; ++i) {
-                    int index = rand.Next(n[current_n] + 1);
-                    int value = arr[index];
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-                    arr.BinarySearch(value);
-                    stopWatch.Stop();
-                    count += stopWatch.Elapsed.Ticks;
-                }
-
-                count /= N;
-                results[current_n] = count.ToString();
-            }
-            return results;
-        }
-
-        public static string[] TestSortAlgo()
-        {
-            string[] results = new string[n.Length];
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
-
-                long count = 0;
-                for( int i = 0; i < N; ++i) {
-                    Stopwatch stopWatch = new Stopwatch();
-                    stopWatch.Start();
-                    arr.Sort();
-                    stopWatch.Stop();
-                    count += stopWatch.Elapsed.Ticks;
-                }
-
-                count /= N;
-                results[current_n] = count.ToString();
-            }
-            return results;
+            return Convert.ToString(_tickAverage);
         }
 
         static void Main(string[] args)
         {
-            string[] resultsLinear = TestLinearSearchAlgo();
-            string[] resultsBinarySearch = TestBinarySearchAlgo();
-            string[] resultsSort = TestSortAlgo();
 
-            string buf = "n;LinearSearch;BinarySearch;Sort\n";
-            for (int i = 0; i < n.Length; ++i) {
-                buf += $"{n[i]};{resultsLinear[i]};{resultsBinarySearch[i]};{resultsSort[i]}\n";
+            DArray test_arr = new DArray();
+            string[] _linearSearhResult = new string[50];
+            string[] _binarySearhResult = new string[50];
+            string[] _sortResult = new string[50];
+
+            int index = 0;
+            for (int i = 100; i <= 5000; i += 100)
+            {
+
+                for (int j = 0; j < i; j++)
+                {
+                    test_arr.Insert(j);
+                }
+
+                test_arr.Sort();
+
+                _linearSearhResult[index] = TestSearchAlgo(test_arr.LinearSearch, i);
+                _binarySearhResult[index] = TestSearchAlgo(test_arr.BinarySearch, i);
+                ++index;
+
             }
 
-            File.WriteAllText("../AlgoTimeResults.csv", buf);
+            index = 0;
+            for (int i = 100; i <= 5000; i += 100)
+            {
+
+                for (int j = 0; j < i; j++)
+                {
+                    test_arr.Insert(new Random().Next(i), j);
+                }
+
+                _sortResult[index] = TestSortAlgo(test_arr.Sort);
+                ++index;
+            }
+
+            var sw = new StreamWriter("AlgoTimeResults.csv");
+            sw.WriteLine("n;LinearSearh;BinarySearh;MergeSort");
+            for (int i = 0; i < _linearSearhResult.Length; i++)
+            {
+                sw.WriteLine(100 * (i + 1) + ";" + _linearSearhResult[i] + ";" + _binarySearhResult[i] + ";" + _sortResult[i]);
+            }
+            sw.Close();
         }
     }
 }
