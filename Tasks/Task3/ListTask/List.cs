@@ -16,73 +16,178 @@ namespace ListTask
         private int size;
 
         public List() {
-            throw new NotImplementedException();
+            head = null;
+            tail = null;
+            size = 0;
         }
 
         public List(IEnumerable<int> collection) 
         {
-            throw new NotImplementedException();
+            foreach (int temp in collection)
+            {
+                PushBack(temp);
+            }
         }
 
         public int Front()
         {
-            throw new NotImplementedException();
+           return head.value;
         }
 
         public int Back()
         {
-            throw new NotImplementedException();
+            return tail.value;
         }
 
         public bool Empty()
         {
-            throw new NotImplementedException();
+           if (head == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public int Size()
         {
-            throw new NotImplementedException();
+            return size;
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            head = null;
+            tail = null;
+            size = 0;
         }
 
         public void PushBack(int value)
         {
-            throw new NotImplementedException();
+            Node newNode = new Node();
+            newNode.value = value;
+            if(head!=null)
+            {
+                newNode.prev = tail;
+                tail.next = newNode;
+                tail = newNode;
+            }
+            else
+            {
+                head = newNode;
+                tail = newNode;
+            }
+            ++size;
         }
 
         public int PopBack()
         {
-            throw new NotImplementedException();
-        }
+            if (tail != null)
+            {
+                int temp = tail.value;
+                if (tail.prev != null)
+                {
+                    tail.prev.next = null;
+                    tail = tail.prev;
+                }
+                else
+                {
+                    tail = null;
+                    head = null;
+                }
+                --size;
+
+                return temp;
+            }
 
         public void PushFront(int value)
         {
-            throw new NotImplementedException();
-        }
+                Node newNode = new Node();
+                newNode.value = value;
+                if (head != null)
+                {
+                    newNode.next = head;
+                    head.prev = newNode;
+                    head = newNode;
+                }
+                else
+                {
+                    head = newNode;
+                    tail = newNode;
+                }
+                ++size;
+            }
 
         public int PopFront()
         {
-            throw new NotImplementedException();
+            if(head!=null)
+                {
+                    int temp = head.value;
+                    if(head.prev != null) 
+                    {
+                        head.prev.next = null;
+                        head = head.next;
+                    }
+                    else
+                    {
+                        tail = null;
+                        head = null;
+                    }
+                    --size;
+                }
+                else
+                {
+                    throw new Exception("Empty");
+                }
         }
 
         public void Resize(int count)
         {
-            throw new NotImplementedException();
-        }
+                if (count > size)
+                {
+                    int add = count - size;
+                    for (int i = 0; i < add; ++i)
+                    {
+                        PushBack(0);
+                    }
+                }
+                else if (count < size)
+                {
+                    int remove = size - count;
+                    for (int i = 0; i < remove; ++i)
+                    {
+                        PopBack();
+                    }
+                }
+            }
 
         public void Swap(List other_list)
         {
-            throw new NotImplementedException();
-        }
+                List temp = new List(other_list);
+                other_list.Clear();
+                for(int i = 0; i< size; i++)
+                {
+                    other_list.PushBack(i);
+                }
+                Clear();
+                for (int i = 0; i < temp.Size(); i++)
+                {
+                    PushBack(temp[i]);
+                }
+            }
 
         public void Remove(int value)
         {
-            throw new NotImplementedException();
-        }
+                if (Empty()==true)
+                {
+                    throw new Exception("Empty");
+                }
+                else
+                {
+
+                }
+            }
 
         public void Unique()
         {
