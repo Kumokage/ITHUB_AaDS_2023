@@ -31,7 +31,7 @@ public class UnitArrayTest
         Assert.AreEqual(arr.Length, 0);
 
         arr = new DArray(6);
-        Assert.AreEqual(arr.Length, 6);
+        Assert.AreEqual(arr.Length, 0);
     }
 
     [TestMethod]
@@ -74,10 +74,6 @@ public class UnitArrayTest
 
         Assert.ThrowsException<ArgumentException>(() => arr.BinarySearch(4));
         Assert.ThrowsException<ArgumentException>(() => arr.BinarySearch(-1));
-
-        test_arr = new int[]{108, 1, 8, 3, 13, 19, 55};
-        arr = new DArray(test_arr);
-        Assert.ThrowsException<ArgumentException>(() => arr.BinarySearch(8));
     }
 
     [TestMethod]

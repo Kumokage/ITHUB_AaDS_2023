@@ -2,7 +2,7 @@ namespace DynamicArray;
 
 public abstract class Array
 {
-    protected int[]? _container;
+    protected int[] _container;
     protected int _count;
 
     public abstract void Insert(int value);
