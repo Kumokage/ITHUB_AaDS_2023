@@ -29,12 +29,11 @@ public class Card
 {
     private string text;
     private int prior;
-    CardElement element;
-    CardType cardType;
+    private CardElement element;
+    private CardType cardType;
     public string Text
     {
         get => text;
-
 
 
     }
@@ -46,7 +45,7 @@ public class Card
 
     public CardElement elem
     {
-        get { return element; }
+        get => element;
     }
     public CardType type
     {
@@ -57,7 +56,7 @@ public class Card
         this.text = text;
         this.prior = prior;
         this.element = elem;
-        this.cardType = type;
+        cardType = type;
 
 
 
