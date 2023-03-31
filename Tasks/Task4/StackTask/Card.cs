@@ -27,6 +27,7 @@ public enum CardType
 
 public class Card
 {
+
     private string text;
     private int prior;
     private CardElement element;
@@ -45,6 +46,7 @@ public class Card
 
     public CardElement elem
     {
+
         get => element;
     }
     public CardType type
@@ -62,10 +64,12 @@ public class Card
 
     }
 
+
     public override string ToString()
     {
         return $"\t\n {element} \n\t {type} \n {text} \n";
     }
+
 
 
 
