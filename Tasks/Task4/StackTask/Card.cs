@@ -33,6 +33,7 @@ namespace StackTask
             this.prior = prior;
         }
 
+
         public CardElement Element
         {
             get => elem;
