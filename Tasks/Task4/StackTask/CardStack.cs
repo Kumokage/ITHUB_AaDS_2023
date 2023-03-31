@@ -1,34 +1,76 @@
-﻿namespace StackTask;
+﻿using System.Drawing;
+using System.Xml.Linq;
+
+namespace StackTask;
 
 public class CardStack
 {
+    private Card? top;
+    private Card? prev;
+
+    private int size;
 
     public int Size
     {
         get
         {
-            throw new NotImplementedException();
+            return size;
         }
+
     }
 
     public void Push(Card card)
     {
-        throw new NotImplementedException();
+        if (size > 100)
+        {
+            throw new InvalidOperationException(message: "Already full stack");
+        }
+        else
+        {
+            top = card;
+
+
+            ++size;
+
+        }
     }
 
     public Card Top()
     {
-        throw new NotImplementedException();
+        if (top is Card card)
+        {
+            return card;
+        }
+        else
+        {
+            throw new IndexOutOfRangeException();
+        }
     }
 
     public Card Pop()
     {
-        throw new NotImplementedException();
+        if (top is null)
+        {
+            throw new System.Exception("Empty stack");
+        }
+
+        Card buf = top;
+        top = prev;
+
+        --size;
+        return buf;
     }
 
     public bool IsReadyForGame()
     {
-        throw new NotImplementedException();
+        if (size > 30)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void Shuffle()
