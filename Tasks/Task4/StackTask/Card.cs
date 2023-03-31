@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace StackTask;
 
-public enum Element
+public enum CardElement
 {
     Water,
     Fire,
@@ -29,7 +29,7 @@ public class Card
 {
     private string text;
     private int prior;
-    Element element;
+    CardElement element;
     CardType cardType;
     public string Text
     {
@@ -44,7 +44,7 @@ public class Card
         get => prior;
     }
 
-    public Element elem
+    public CardElement elem
     {
         get { return element; }
     }
@@ -52,7 +52,7 @@ public class Card
     {
         get => cardType;
     }
-    public Card(Element elem, CardType type, string text, int prior)
+    public Card(CardElement elem, CardType type, string text, int prior)
     {
         this.text = text;
         this.prior = prior;
