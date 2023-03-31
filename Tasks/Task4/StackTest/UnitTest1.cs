@@ -11,8 +11,8 @@ public class UnitTest1
     public void TestPush()
     {
         CardStack stack = new();
-        stack.Push(new Card((Element)1, (CardType)1, "Some1", 1));
-        stack.Push(new Card((Element)1, (CardType)1, "Some", 0));
+        stack.Push(new Card((CardElement)1, (CardType)1, "Some1", 1));
+        stack.Push(new Card((CardElement)1, (CardType)1, "Some", 0));
     }
 
     [TestMethod]
