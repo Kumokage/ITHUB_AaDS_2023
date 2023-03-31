@@ -21,9 +21,11 @@ public enum CardType
 
 public class Card
 {
+
     CardType type ;
     CardElement elemnt;
     int prior;
+
 
     public Card(CardElement elem, CardType type, string text, int prior)
     {
@@ -43,5 +45,37 @@ public class Card
         return "End";
     }
 
+
+    public CardElement Element
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public CardType Type
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public string Text
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public int Prior
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }
