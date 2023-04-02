@@ -111,7 +111,7 @@ namespace StackTask
 
         public bool IsReadyForGame()
         {
-            if (_size > 30)
+            if (_size >= 30)
             {
                 return true;
             }
