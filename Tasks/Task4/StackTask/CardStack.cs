@@ -99,7 +99,7 @@ namespace StackTask
             if (_top is Node top)
             {
                 Card buff = _top.value;
-                if(top.prev != 0)
+                if(top.prev != null)
                 {
                     _top = top.prev;
                 }
