@@ -96,14 +96,24 @@ namespace StackTask
 
         public Card Pop()
         {
-            if (_top is null)
+            if (_top is Node top)
+            {
+                Card buff = _top.value;
+                if(top.prev != 0)
+                {
+                    _top = top.prev;
+                }
+                else
+                {
+                    _top = null;
+                }
+                --_size;
+                return buff;
+            }
+            else
             {
                 throw new Exception("Empty deck");
             }
-            Card buf = _top.value;
-            _top = _top.prev;
-            --_size;
-            return buf;
         }
 
         public bool IsReadyForGame()
