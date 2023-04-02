@@ -35,7 +35,7 @@ public class Card
     }
     public override string ToString() 
     {
-        return $"\t\n {_cardElement} \n\t {_cardType} \n {_text} \n"
+        return ($"\t\n {_cardElement} \n\t {_cardType} \n {_text} \n");
     }
     public int Prior
     {
@@ -52,37 +52,5 @@ public class Card
     public CardType Type
     {
         get { return _cardType; }
-    }
-
-    public CardElement Element
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public CardType Type
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public string Text
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public int Prior
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
     }
 }

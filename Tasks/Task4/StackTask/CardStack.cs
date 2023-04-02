@@ -42,7 +42,7 @@ public class CardStack
 
     public void Push(Card card)
     {
-        Node new_card = new(card,null)
+        Node new_card = new(card, null);
         if(_top is Node top)
         {
             Node? buff = top;
