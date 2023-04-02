@@ -46,7 +46,7 @@ namespace StackTask
 
         public void Push(Card card)
         {
-            if (_size > 99)
+            if (_size >= 100)
             {
                 throw new System.Exception("Deck is full");
             }
