@@ -1,14 +1,18 @@
-﻿namespace StackTask;
-using Card;
+﻿using System.Diagnostics;
+using System;
 
-public class CardStack
+namespace StackTask
 {
-     class Node
+
+
+    public class CardStack
+    {
+        class Node
         {
             public Card value;
             public Node? prev;
 
-            
+
             public Node(Card value, Node? prev)
             {
                 this.value = value;
@@ -16,23 +20,23 @@ public class CardStack
 
             }
         }
-    private Node? _top;
-    private int _size;
-    
-    public int Size
-    {
-        get
+        private Node? _top;
+        private int _size;
+
+        public int Size
         {
-            return _size;
+            get
+            {
+                return _size;
+            }
         }
-    }
-    public CardStack()
-    {
+        public CardStack()
+        {
             _top = null;
             _size = 0;
-    }
+        }
 
-    public CardStack(IEnumerable<Card> collection)
+        public CardStack(IEnumerable<Card> collection)
         {
             foreach (Card buf in collection)
             {
@@ -40,62 +44,62 @@ public class CardStack
             }
         }
 
-    public void Push(Card card)
-    {
-        Node new_card = new(card, null);
-        if(_top is Node top)
+        public void Push(Card card)
         {
-            Node? buff = top;
-            if(_size>99)
+            Node new_card = new(card, null);
+            if (_top is Node top)
             {
-                throw new System.Exception("Deck is full");
-            }
-            else
-            {
-                if(card.Prior<buff.value.Prior)
+                Node? buff = top;
+                if (_size > 99)
                 {
-                    new_card.prev = _top;
-                    _top = new_card;
+                    throw new System.Exception("Deck is full");
                 }
                 else
                 {
-                 while(buff != null && buff.value.Prior <= card.Prior)
-                 {
-                    buff = buff.prev;
-                 } 
-                 if(buff!= null)
+                    if (card.Prior < buff.value.Prior)
                     {
-                        new_card.prev = buff;
+                        new_card.prev = _top;
+                        _top = new_card;
                     }
                     else
                     {
-                        buff.prev = new_card;
+                        while (buff != null && buff.value.Prior <= card.Prior)
+                        {
+                            buff = buff.prev;
+                        }
+                        if (buff != null)
+                        {
+                            new_card.prev = buff;
+                        }
+                        else
+                        {
+                            buff.prev = new_card;
+                        }
                     }
-                }          
-            }           
-        }
-        else
-        {
-            _top = new_card;
-        }
-        
-        ++_size;
-    }
+                }
+            }
+            else
+            {
+                _top = new_card;
+            }
 
-    public Card Top()
-    {
-        if (top is Node node)
+            ++_size;
+        }
+
+        public Card Top()
         {
+            if (top is Node node)
+            {
                 return node.value;
-        }
-        else
-        {
+            }
+            else
+            {
                 throw new IndexOutOfRangeException();
+            }
         }
-    }
 
-    public Card Pop()
-    {
+        public Card Pop()
+        {
             if (top is null)
             {
                 throw new System.Exception("Empty deck");
@@ -104,22 +108,23 @@ public class CardStack
             _top = _top.prev;
             --size;
             return buf;
-    }
-
-    public bool IsReadyForGame()
-    {
-        if(_size>=30)
-        {
-            return true;
         }
-        else
-        {
-            return false;
-        }
-    }
 
-    public void Shuffle()
-    {
-        throw new NotImplementedException();
+        public bool IsReadyForGame()
+        {
+            if (_size >= 30)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Shuffle()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
