@@ -88,7 +88,7 @@ namespace StackTask
 
         public Card Top()
         {
-            if (top is Node node)
+            if (_top is Node node)
             {
                 return node.value;
             }
@@ -100,13 +100,13 @@ namespace StackTask
 
         public Card Pop()
         {
-            if (top is null)
+            if (_top is null)
             {
                 throw new System.Exception("Empty deck");
             }
             Card buf = _top.value;
             _top = _top.prev;
-            --size;
+            --_size;
             return buf;
         }
 

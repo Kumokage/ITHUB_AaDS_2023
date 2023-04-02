@@ -28,8 +28,8 @@ public class Card
 
     public Card(CardElement elem, CardType type, string text, int prior)
     {
-        cardElement = elem;
-        cardType = type;
+        _cardElement = elem;
+        _cardType = type;
         _text = text;
         _prior = prior;
     }
