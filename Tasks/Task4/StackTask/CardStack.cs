@@ -20,9 +20,16 @@ namespace StackTask
 
             }
         }
+
         private Node? _top;
         private int _size;
 
+        public CardStack()
+        {
+            _top = null;
+            _size = 0;
+        } 
+          
         public int Size
         {
             get
@@ -30,20 +37,6 @@ namespace StackTask
                 return _size;
             }
         }
-        public CardStack()
-        {
-            _top = null;
-            _size = 0;
-        }
-
-        public CardStack(IEnumerable<Card> collection)
-        {
-            foreach (Card buf in collection)
-            {
-                Push(buf);
-            }
-        }
-
         public void Push(Card card)
         {
             if (_size >= 100)
@@ -58,12 +51,12 @@ namespace StackTask
                 Node? buff = top;
                 Node? buffprev = null;
 
-                while (buff != null && card.Prior > buff.value.Prior)
+                while (buff is not null && card.Prior > buff.value.Prior)
                 {
                     buffprev = buff;
                     buff = buff.prev;
                 }
-                if (buffprev != null)
+                if (buffprev is not null)
                 {
                     buffprev.prev = new_card;
                     new_card.prev = buff;
@@ -98,8 +91,8 @@ namespace StackTask
         {
             if (_top is Node top)
             {
-                Card buff = _top.value;
-                if(top.prev != null)
+                Card buff = top.value;
+                if(top.prev is not null)
                 {
                     _top = top.prev;
                 }
@@ -118,7 +111,7 @@ namespace StackTask
 
         public bool IsReadyForGame()
         {
-            if (_size >= 30)
+            if (_size > 30)
             {
                 return true;
             }
