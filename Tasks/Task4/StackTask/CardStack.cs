@@ -46,36 +46,32 @@ namespace StackTask
 
         public void Push(Card card)
         {
+            if (_size > 99)
+            {
+                throw new System.Exception("Deck is full");
+            }
+
             Node new_card = new(card, null);
+
             if (_top is Node top)
             {
                 Node? buff = top;
-                if (_size > 99)
+                Node? buffprev = null;
+
+                while (buff != null && card.Prior > buff.value.Prior)
                 {
-                    throw new System.Exception("Deck is full");
+                    buffprev = buff;
+                    buff = buff.prev;
+                }
+                if (buffprev != null)
+                {
+                    buffprev.prev = new_card;
+                    new_card.prev = buff;
                 }
                 else
                 {
-                    if (card.Prior < buff.value.Prior)
-                    {
-                        new_card.prev = _top;
-                        _top = new_card;
-                    }
-                    else
-                    {
-                        while (buff != null && buff.value.Prior <= card.Prior)
-                        {
-                            buff = buff.prev;
-                        }
-                        if (buff != null)
-                        {
-                            new_card.prev = buff;
-                        }
-                        else
-                        {
-                            buff.prev = new_card;
-                        }
-                    }
+                    new_card.prev = buff;
+                    _top = new_card;
                 }
             }
             else
@@ -94,7 +90,7 @@ namespace StackTask
             }
             else
             {
-                throw new IndexOutOfRangeException();
+                throw new Exception("Empty deck");
             }
         }
 
@@ -102,7 +98,7 @@ namespace StackTask
         {
             if (_top is null)
             {
-                throw new System.Exception("Empty deck");
+                throw new Exception("Empty deck");
             }
             Card buf = _top.value;
             _top = _top.prev;
