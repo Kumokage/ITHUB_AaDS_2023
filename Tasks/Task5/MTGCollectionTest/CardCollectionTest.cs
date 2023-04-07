@@ -1,11 +1,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MTGCollectionTest;
+namespace MTGCollectionTest
+{
 
-[TestClass]
-public class CardCollectionTest {
-    [TestMethod]
-    public void TestMethod1()
+    [TestClass]
+    public class CardCollectionTest
     {
+        [TestMethod]
+        public void TestMethod1()
+        {
+        }
     }
 }
