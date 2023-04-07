@@ -11,10 +11,12 @@ public class UnitTest1
     public void TestTopPush()
     {
         CardStack stack = new();
+
         stack.Push(new Card((CardElement)1, (CardType)1, "Some", 0));
         stack.Push(new Card((CardElement)1, (CardType)1, "Some1", 1));
         Assert.AreEqual(2, stack.Size);
         Assert.AreEqual("Some", stack.Top().Text);
+
 
         stack.Push(new Card((CardElement)1, (CardType)1, "Some3", 0));
         Assert.AreEqual(3, stack.Size);
