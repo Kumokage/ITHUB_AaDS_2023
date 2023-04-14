@@ -2,6 +2,8 @@ namespace PokemonGame;
 
 public class Pokemon : ICloneable
 {
+    private float _attack;
+    private int _baseTotal;
     public Pokemon(
         float attack,
         int base_total,
