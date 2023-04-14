@@ -1,11 +1,14 @@
 ﻿using System;
 
-namespace PokemonGame;
-
-static class Program
+namespace PokemonGame
 {
-    public static void Main()
+
+    static class Program
     {
-        return;
+        public static void Main()
+        {
+            return;
+        }
     }
+
 }
