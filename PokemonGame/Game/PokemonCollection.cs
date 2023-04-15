@@ -18,6 +18,7 @@ namespace PokemonGame
 
     public class PokemonCollection
     {
+        int hashnew;
 
         private Node[] _collection = new Node[1000];
 
@@ -42,7 +43,7 @@ namespace PokemonGame
 
                 float[] againstTypeTable = new float[18];
 
-                for (int j = 0; i < 18; ++i)
+                for (int j = 0; j < 18; ++j)
                 {
                     againstTypeTable[j] = float.Parse(pokData[j], CultureInfo.InvariantCulture);
                 }
@@ -72,11 +73,11 @@ namespace PokemonGame
 
             if (_collection[hash] is not null)
             {
-
                 Node node = _collection[hash];
 
                 while (node is not null)
                 {
+
                     if (node.value.Name == pokemon.Name)
                     {
                         node.value = pokemon;
@@ -91,21 +92,23 @@ namespace PokemonGame
             {
                 _collection[hash] = new Node(null, pokemon);
             }
+
         }
+
+
 
         public Pokemon FindByName(string name)
         {
             int hash = Math.Abs(name.GetHashCode() % _collection.Length);
 
+            hashnew = hash;
+
             if (_collection[hash] is not null)
             {
                 Node node = _collection[hash];
 
-                int count = 0;
                 while (node is not null)
                 {
-                    Debug.WriteLine(node.value.Name + " " + (++count));
-
                     if (node.value.Name == name)
                     {
                         return node.value;
