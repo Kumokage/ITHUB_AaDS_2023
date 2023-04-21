@@ -53,7 +53,7 @@ namespace PokemonGame
 
             while (true)
             {
-                Console.WriteLine($"----------------------\n| {String.Format("{0,-20}", player.PlayerName)} |\n----------------------");
+                Console.WriteLine($"-----------------------\n| {String.Format("{0,-20}", player.PlayerName)} |\n-----------------------");
                 Console.WriteLine("Очки: " + player.Points);
                 Console.WriteLine("Ваши покемоны: " + player.FightingQueue.ToString());
                 Console.WriteLine("______________________________________________\n");
@@ -157,6 +157,7 @@ namespace PokemonGame
                 Console.WriteLine("Введите именна игроков");
                 Console.Write("Player 1: ");
                 player1 = new Player(Console.ReadLine());
+                Console.Write("Player 2: ");
                 Console.Write("Player 2: ");
                 player2 = new Player(Console.ReadLine());
 
