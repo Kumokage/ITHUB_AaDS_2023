@@ -22,7 +22,7 @@ public class Pokemon : ICloneable
     public float[] AgainstTypeTabl { get ; private set; } = new float[Enum.GetNames(typeof(PokemonType)).Length];
 
     public Pokemon(
-        float attack,
+       float attack,
         int base_total,
         int capture_rate,
         float defence,
@@ -66,7 +66,10 @@ public class Pokemon : ICloneable
         object clone = new Pokemon(this.Attack,this.BaseTotal,this.CaptureRate,this.Defence,this.Hp,this.SpAttack,this.SpDefence,this.Speed,this.Generation,this.IsLegend,this.Name,this.Type1,this.Type2,this.AgainstTypeTabl);
         return clone;
     }
-
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
     public void AttackPokemon(Pokemon target)
     {
         float damage;
