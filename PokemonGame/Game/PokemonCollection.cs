@@ -37,6 +37,7 @@ namespace PokemonGame
                 if (int.Parse(pokData[30]) == 0) is_legend = false;
                 else is_legend = true;
 
+
                 PokemonType? type2;
                 if (pokData[28] != "") type2 = (PokemonType)Enum.Parse(typeof(PokemonType), pokData[28]);
                 else type2 = null;

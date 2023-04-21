@@ -28,6 +28,15 @@
             }
         }
 
+        public FightingQueue()
+        {
+            _head = null;
+            _tail = null;
+            _size = 0;
+        }
+
+        public int Length => _size;
+
         public void Push(Pokemon pokemon)
         {
             Node new_node = new(pokemon, null, null);
@@ -103,6 +112,39 @@
             {
                 throw new Exception("No pokemon left");
             }
+        }
+
+        public Pokemon FindByName(string name)
+        {
+            if (_head is not null)
+            {
+                Node node = _head;
+
+                while (node is not null)
+                {
+                    if (node.pokemon.Name == name)
+                    {
+                        return node.pokemon;
+                    }
+                    node = node.next;
+                }
+            }
+
+            throw new Exception("No such pokemon");
+        }
+
+        public override string ToString() 
+        {
+            string str = "";
+            Node? node = _head;
+
+            while (node is not null)
+            {
+                str += node.pokemon.Name + " ";
+                node = node.next;
+            }
+
+            return str;
         }
     }
 }

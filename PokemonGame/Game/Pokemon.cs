@@ -77,13 +77,15 @@ namespace PokemonGame
             }
         }
 
-        public void AttackPokemon(Pokemon target)
+        public float AttackPokemon(Pokemon target)
         {
             float damage = (AgainstTypeTable[(int)Type1] + AgainstTypeTable[(int)Type2]) / 2 * Attack - Defence;
 
-            if (damage < 0) return;
+            if (damage < 0) return 0;
 
             target.Hp -= damage;
+
+            return damage;
         }
     }
 }
