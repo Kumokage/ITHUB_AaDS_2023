@@ -43,7 +43,7 @@
             if (_tail is Node tail && _head is Node head)
             {
                 Node? buf = tail;
-                while (buf != null && buf.pokemon.Speed > pokemon.Speed)
+                while (buf != null && buf.pokemon.Speed < pokemon.Speed)
                 {
                     buf = buf.next;
                 }
@@ -122,11 +122,11 @@
 
                 while (node is not null)
                 {
-                    if (node.pokemon.Name == name)
+                    if (node.pokemon.Name == name && !node.pokemon.isDead)
                     {
                         return node.pokemon;
                     }
-                    node = node.next;
+                    node = node.prev;
                 }
             }
 
@@ -140,8 +140,14 @@
 
             while (node is not null)
             {
-                str += node.pokemon.Name + " ";
-                node = node.next;
+                if (!node.pokemon.isDead)
+                {
+                    if(node.prev is not null) 
+                        str += node.pokemon.Name + ",";
+                    else
+                        str += node.pokemon.Name;
+                    node = node.prev;
+                }
             }
 
             return str;

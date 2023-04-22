@@ -1,3 +1,5 @@
+using System;
+
 namespace PokemonGame
 {
 
@@ -79,7 +81,16 @@ namespace PokemonGame
 
         public float AttackPokemon(Pokemon target)
         {
-            float damage = (AgainstTypeTable[(int)Type1] + AgainstTypeTable[(int)Type2]) / 2 * Attack - Defence;
+            float damage;
+
+            if(target.Type2 is not null)
+            {
+                damage = (AgainstTypeTable[(int)target.Type1] + AgainstTypeTable[(int)target.Type2]) / 2 * Attack - target.Defence;
+            }
+            else
+            {
+                damage = AgainstTypeTable[(int)target.Type1] * Attack - target.Defence;
+            }
 
             if (damage < 0) return 0;
 
