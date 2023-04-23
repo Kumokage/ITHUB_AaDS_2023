@@ -7,12 +7,14 @@ using PokemonGame;
 public class PokemonCollectionTest
 {
     [TestMethod]
-    public void PokemonColectionPushTest() {
+    public void PokemonColectionPushTest()
+    {
         _ = new PokemonCollection("../../../../data/pokemon.csv");
     }
 
     [TestMethod]
-    public void PokemonColectionFindTest() {
+    public void PokemonColectionFindTest()
+    {
         PokemonCollection collection = new("../../../../data/pokemon.csv");
         var foundPokemon = collection.FindByName("Venusaur");
         Assert.AreEqual(625, foundPokemon.BaseTotal);
