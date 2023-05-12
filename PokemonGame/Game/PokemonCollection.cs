@@ -76,3 +76,61 @@ public class PokemonCollection
         }
     }
 }
+public class PokemonTree
+{
+    public class Node
+    {
+        public Pokemon pokemon;
+        public Node? left;
+        public Node? right;
+        public string value;
+        public Node(Pokemon pokemonchik, Node? left,Node? right)
+        {
+            this.pokemon = pokemonchik;
+            this.left = left;
+            this.right = right;
+            this.value = pokemonchik.Name;
+        }
+    }
+    Node? root;
+    int Sizik;
+    
+    public PokemonTree()
+	{
+
+	}
+    public void Add(Pokemon pokemon)
+    {
+        
+        if(Sizik==0)
+        {
+            root = new Node(pokemon);
+        }
+        else
+        {
+            Node buff = root;
+             while (buff is not null&&buff.value)
+        }
+        ++Sizik;
+    }
+    public Pokemon Search(string name)
+    {
+        Node buff = root;
+        while (buff is not null&&buff.value!=name)
+        {
+            if(buff.value>name&&buff.value)
+        }
+    }
+    public Pokemon Delete(string name)
+    {
+
+    }
+    public void Balance()
+    {
+
+    }
+    public int Size
+    {
+        get { return Sizik;}
+    }
+}
