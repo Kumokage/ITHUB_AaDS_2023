@@ -115,7 +115,7 @@ namespace PokemonGame
                 Console.WriteLine(player.Points);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Ваши покемоны: ");
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(player.FightingQueue.ToString());
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("______________________________________________________________\n");
@@ -244,7 +244,7 @@ namespace PokemonGame
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($" |\n------------------------\n");
                 Console.Write("Ваш атакующий покемон: ");
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(attack.ActivePokemon.Name);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\n________________________________________________________________\n");
