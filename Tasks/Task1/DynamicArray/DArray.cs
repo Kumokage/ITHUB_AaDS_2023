@@ -3,59 +3,71 @@ namespace DynamicArray;
 
 public class DArray : Array
 {
-    // _count количество элементов в массиве
+
 
     private bool _isSorted = false;
 
-    public DArray() {
+    public DArray()
+    {
         _container = new int[1];
         _count = 0;
     }
 
-    public DArray(int count) {
+    public DArray(int count)
+    {
         _container = new int[count];
         _count = 0;
     }
 
-    public DArray(int[] container) {
-        if (container.Length == 0) {
+    public DArray(int[] container)
+    {
+        if (container.Length == 0)
+        {
             _container = new int[1];
         }
-        else{
+        else
+        {
             _container = new int[container.Length];
         }
-        
+
         _count = container.Length;
-        for(int i = 0; i < _count; ++i) {
+        for (int i = 0; i < _count; ++i)
+        {
             _container[i] = container[i];
         }
     }
 
     public override int this[int index]
     {
-        get {
-            if (index >= _count || index < 0) {
+        get
+        {
+            if (index >= _count || index < 0)
+            {
                 throw new IndexOutOfRangeException();
             }
 
             return _container[index];
         }
-        set {
+        set
+        {
             Insert(value, index);
         }
     }
 
     public override int Length
     {
-        get {
+        get
+        {
             return _count;
         }
     }
 
-    private void Resize() {
+    private void Resize()
+    {
         int[] new_container = new int[_container.Length * 2];
-        for (int i = 0; i < _count; ++i ) {
-            new_container[i] =  _container[i];
+        for (int i = 0; i < _count; ++i)
+        {
+            new_container[i] = _container[i];
         }
 
         _container = new_container;
@@ -63,15 +75,18 @@ public class DArray : Array
 
     public override void Insert(int value, int position)
     {
-        if (position > _count || position < 0) {
+        if (position > _count || position < 0)
+        {
             throw new IndexOutOfRangeException("Incorrect position value");
         }
 
-        if (_count == _container.Length) {
+        if (_count == _container.Length)
+        {
             Resize();
         }
 
-        for (int i = _count - 1; i >= position; --i) {
+        for (int i = _count - 1; i >= position; --i)
+        {
             _container[i + 1] = _container[i];
         }
 
@@ -87,11 +102,13 @@ public class DArray : Array
 
     public override void Remove(int index)
     {
-        if(index >= _count || index < 0) {
+        if (index >= _count || index < 0)
+        {
             throw new IndexOutOfRangeException();
-        } 
+        }
 
-        for (int i = index; i < _count - 1; ++i ) {
+        for (int i = index; i < _count - 1; ++i)
+        {
             _container[i] = _container[i + 1];
         }
 
@@ -139,15 +156,15 @@ public class DArray : Array
 
     public override int LinearSearch(int value)
     {
-        for (int i = 0; i < _count; i++) 
-        { 
-            if (value == _container[i]) 
-            { 
-                return i; 
-            } 
-        } 
-        
-        throw new ArgumentException("Incorret value");
+        for (int i = 0; i < _count; i++)
+        {
+            if (value == _container[i])
+            {
+                return i;
+            }
+        }
+
+        throw new ArgumentException("Incorrect value");
     }
 
     public override void Sort()

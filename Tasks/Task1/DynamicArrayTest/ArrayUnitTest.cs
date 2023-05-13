@@ -11,7 +11,7 @@ public class UnitArrayTest
     [TestMethod]
     public void TestIndexer()
     {
-        int[] test_arr = new int[]{1, 2, 4, 5};
+        int[] test_arr = new int[] { 1, 2, 4, 5 };
         DArray arr = new DArray(test_arr);
 
         Assert.AreEqual(arr[2], 4);
@@ -23,10 +23,10 @@ public class UnitArrayTest
     [TestMethod]
     public void TestLength()
     {
-        int[] test_arr = new int[]{1, 2, 4, 5};
+        int[] test_arr = new int[] { 1, 2, 4, 5 };
         DArray arr = new DArray(test_arr);
         Assert.AreEqual(arr.Length, 4);
-        
+
         arr = new DArray();
         Assert.AreEqual(arr.Length, 0);
 
@@ -37,7 +37,7 @@ public class UnitArrayTest
     [TestMethod]
     public void TestInsert()
     {
-        int[] test_arr = new int[]{1, 2, 4, 5};
+        int[] test_arr = new int[] { 1, 2, 4, 5 };
         DArray arr = new DArray(test_arr);
         arr.Insert(3, 2);
 
@@ -45,7 +45,7 @@ public class UnitArrayTest
 
         arr.Insert(6);
         Assert.AreEqual(arr[5], 6);
-        
+
         Assert.ThrowsException<IndexOutOfRangeException>(() => arr.Insert(10, 9));
         Assert.ThrowsException<IndexOutOfRangeException>(() => arr.Insert(10, -2));
     }
@@ -53,19 +53,19 @@ public class UnitArrayTest
     [TestMethod]
     public void TestRemove()
     {
-       int[] test_arr = new int[]{1, 2, 3, 4, 5};
-       DArray arr = new DArray(test_arr);
-       arr.Remove(2);
+        int[] test_arr = new int[] { 1, 2, 3, 4, 5 };
+        DArray arr = new DArray(test_arr);
+        arr.Remove(2);
 
-       Assert.AreEqual(arr[1], 2);
-       Assert.AreEqual(arr[2], 4);
-       Assert.AreEqual(arr[3], 5);
+        Assert.AreEqual(arr[1], 2);
+        Assert.AreEqual(arr[2], 4);
+        Assert.AreEqual(arr[3], 5);
     }
 
     [TestMethod]
     public void TestBinarySearch()
     {
-        int[] test_arr = new int[]{1, 3, 8, 13, 19, 55, 108};
+        int[] test_arr = new int[] { 1, 3, 8, 13, 19, 55, 108 };
         DArray arr = new DArray(test_arr);
 
         Assert.AreEqual(arr.BinarySearch(13), 3);
@@ -79,7 +79,7 @@ public class UnitArrayTest
     [TestMethod]
     public void TestLinearSearch()
     {
-        int[] test_arr = new int[]{108, 1, 8, 3, 13, 19, 55};
+        int[] test_arr = new int[] { 108, 1, 8, 3, 13, 19, 55 };
         DArray arr = new DArray(test_arr);
 
         Assert.AreEqual(arr.LinearSearch(3), 3);
@@ -93,13 +93,14 @@ public class UnitArrayTest
     [TestMethod]
     public void TestSort()
     {
-        int[] test_arr = new int[]{108, 3, 8, 13, 55, 19, 1};
-        int[] test_arr_sorted = new int[]{1, 3, 8, 13, 19, 55, 108};
-        
+        int[] test_arr = new int[] { 108, 3, 8, 13, 55, 19, 1 };
+        int[] test_arr_sorted = new int[] { 1, 3, 8, 13, 19, 55, 108 };
+
         DArray arr = new DArray(test_arr);
         arr.Sort();
 
-        for(int i = 0; i < arr.Length; i++) {
+        for (int i = 0; i < arr.Length; i++)
+        {
             Assert.AreEqual(arr[i], test_arr_sorted[i]);
         }
     }
