@@ -20,8 +20,8 @@ public class PokemonTree
             this.value = pokemonchik.Name;
         }
     }
-    Node? root;
-    int Sizik;
+    Node? _root;
+    int _sizik;
 
     public PokemonTree()
     {
@@ -30,13 +30,13 @@ public class PokemonTree
     public void Add(Pokemon pokemon)
     {
 
-        if (root == null)
+        if (_root == null)
         {
-            root = new Node(pokemon,null,null,null);
+            _root = new Node(pokemon,null,null,null);
         }
         else
         {
-            Node buff = root;
+            Node buff = _root;
             while (buff.right!=null&&buff.left!=null)
             {
                 if(buff.value.CompareTo(pokemon.Name)==1)
@@ -61,13 +61,13 @@ public class PokemonTree
                 buff.left = new Node(pokemon, null, null,buff);
             }
         }
-        ++Sizik;
+        ++_sizik;
     }
     public Pokemon Search(string name)
     {
-        if(root is not null)
+        if(_root is not null)
         {
-            Node buff = root;
+            Node buff = _root;
             while (buff.right != null && buff.left != null)
             {
                 if (buff.value.CompareTo(name) == 1)
@@ -88,9 +88,9 @@ public class PokemonTree
     }
     public Pokemon Delete(string name)
     {
-        if (root is not null)
+        if (_root is not null)
         {
-            Node buff = root;
+            Node buff = _root;
             while (buff.right != null && buff.left != null)
             {
                 if (buff.value.CompareTo(name) == 1)
@@ -127,6 +127,6 @@ public class PokemonTree
     }
     public int Size
     {
-        get { return Sizik; }
+        get { return _sizik; }
     }
 }
