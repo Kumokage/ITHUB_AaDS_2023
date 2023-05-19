@@ -85,4 +85,23 @@ public class PokemonTreeTest
         Pokemon deleted_pokemon = tree.Delete(collection[TEST_TREE_SIZE / 2].Name);
         Assert.ThrowsException<ArgumentException>(() => tree.Search(deleted_pokemon.Name));
     }
+    [TestMethod]
+    public void TestToString(){
+        PokemonTree tree = new();
+        Pokemon[] ToStrCollection = new Pokemon[7];
+        PokemonCollection collection = new("../../../../data/pokemon.csv");
+        ToStrCollection[0] = collection.FindByName("Kakuna");
+        ToStrCollection[1] = collection.FindByName("Igglybuff");
+        ToStrCollection[2] = collection.FindByName("Rattata");
+        ToStrCollection[3] = collection.FindByName("Jumpluff");
+        ToStrCollection[4] = collection.FindByName("Oddish");
+        ToStrCollection[5] = collection.FindByName("Zapdos");
+        ToStrCollection[6] = collection.FindByName("Meowth");
+        for (int i = 0; i < ToStrCollection.Length; ++i)
+        {
+            tree.Add(ToStrCollection[i]);
+        }
+         Assert.AreEqual("Kakuna Rattata Igglybuff Zapdos Oddish Jumpluff Meowth ", tree.ToString());
+
+    }
 }
