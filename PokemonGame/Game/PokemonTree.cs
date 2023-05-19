@@ -23,106 +23,128 @@ public class PokemonTree
     Node? _root;
     int _sizik;
 
-    public PokemonTree()
-    {
-
-    }
     public void Add(Pokemon pokemon)
     {
-    if (_root == null)
-    {
-        _root = new Node(pokemon,null,null,null);
-    }
-    else
-    {
-        Node buff = _root;
-        while (buff.right!=null&&buff.left!=null)
-        {
-            if(buff.value.CompareTo(pokemon.Name)==1)
+       if (_root == null)
+       {
+           _root = new Node(pokemon, null, null, null);
+       }
+       else
+       {
+            Node buff = _root;
+            bool flag = true;
+            while (flag)
             {
-                buff = buff.right;
+                if(String.Compare(buff.value,pokemon.Name)>0)
+                {
+                    if(buff.left!=null)
+                    {
+                        buff = buff.left;
+                    }
+                    else
+                    {
+                        buff.left = new Node(pokemon, null, null, buff);
+                        flag = false;
+                    }
+                }
+                else if(String.Compare(buff.value, pokemon.Name) < 0)
+                {
+                    if(buff.right!=null)
+                    {
+                        buff = buff.right;
+                    }
+                    else
+                    {
+                        buff.right = new Node(pokemon, null, null, buff);
+                        flag = false;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("такой покемон уже есть");
+                }
             }
-            else if(buff.value.CompareTo(pokemon.Name) == -1)
-            {
-                buff = buff.left ;
-            }
-            else
-            {
-                throw new ArgumentException("такой покемончи уже есть");
-            }
-        }
-        if (pokemon.Name.CompareTo(buff.value) == 1)
-        {
-            buff.right = new Node(pokemon, null, null,buff);
-        }
-        else
-        {
-            buff.left = new Node(pokemon, null, null,buff);
-        }
-    }
-    ++_sizik;
+        ++_sizik;
+       }
     }
     public Pokemon Search(string name)
     {
-        if(_root is not null)
+       
+        if (_root is null)
         {
-            Node buff = _root;
-            while (buff.right != null && buff.left != null)
-            {
-                if (buff.value.CompareTo(name) == 1)
-                {
-                    buff = buff.right ;
-                }
-                else if (buff.value.CompareTo(name) == -1)
-                {
-                    buff = buff.left;
-                }
-                else if (buff.value.CompareTo(name) == 0)
-                {
-                    return buff.pokemon;
-                }
-            }
-            throw new ArgumentException("покемончи не нашёуся");           
+            throw new ArgumentException("нет покемонов");
         }
         else
         {
-            throw new ArgumentException("покемончи не нашёуся");
-        }     
-    }
-    public Pokemon Delete(string name)
-    {
-        if (_root is not null)
-        {
             Node buff = _root;
-            while (buff.right != null && buff.left != null)
+            bool flag = true;
+            while (flag)
             {
-                if (buff.value.CompareTo(name) == 1)
+                if (String.Compare(buff.value, name) > 0)
                 {
-                    buff = buff.right;
-                }
-                else if (buff.value.CompareTo(name) == -1)
-                {
-                    buff = buff.left;
-                }
-                else if (buff.value.CompareTo(name) == 0)
-                {
-                    if (buff.parent != null && buff.parent.right == buff)
+                    if (buff.left != null)
                     {
-                        buff.parent.right = buff.left;
-                        buff.left.parent = buff.parent;
-                        buff.left.right = buff.right;
+                        buff = buff.left;
                     }
-                    else if(buff.parent != null && buff.parent.left == buff)
+                    else
                     {
-                        buff.parent.left = buff.left;
-                        buff.left.parent = buff.parent;
-                        buff.left.right = buff.right;
+                        flag = false;
                     }
+                }
+                else if (String.Compare(buff.value, name) < 0)
+                {
+                    if (buff.right != null)
+                    {
+                        buff = buff.right;
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                }
+                else if(String.Compare(buff.value, name) == 0)
+                {
                     return buff.pokemon;
                 }
             }
+            throw new ArgumentException("покемон не нашелся");
         }
-        throw new ArgumentException("покемончи не нашёуся");
+    }       
+    
+    public Pokemon Delete(string name)
+    {
+       //if (_root is not null)
+       //{
+       //    Node buff = _root;
+       //    while (buff.right != null && buff.left != null)
+       //    {
+       //        if (buff.value.CompareTo(name) == 1)
+       //        {
+       //            buff = buff.right;
+       //        }
+       //        else if (buff.value.CompareTo(name) == -1)
+       //        {
+       //            buff = buff.left;
+       //        }
+       //        else if (buff.value.CompareTo(name) == 0)
+       //        {
+       //            if (buff.parent != null && buff.parent.right == buff)
+       //            {
+       //                buff.parent.right = buff.left;
+       //                buff.left.parent = buff.parent;
+       //                buff.left.right = buff.right;
+       //            }
+       //            else if(buff.parent != null && buff.parent.left == buff)
+       //            {
+       //                buff.parent.left = buff.left;
+       //                buff.left.parent = buff.parent;
+       //                buff.left.right = buff.right;
+       //            }
+       //            return buff.pokemon;
+       //        }
+       //    }
+       //}
+        throw new NotImplementedException();
     }
     public void Balance()
     {
