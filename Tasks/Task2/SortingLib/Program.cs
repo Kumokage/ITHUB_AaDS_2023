@@ -6,7 +6,12 @@ namespace SortingLib
     {
         public static void Main(string[] args)
         {
-            throw new NotImplementedException();
+            string[] arr = { "Misha", "Alena", "Sasha" };
+            Sortings.InsertSort(ref arr, Order.ASC);
+            for (int i = 0; i < arr.Length; ++i)
+            {
+                Console.Write(arr[i] + " ");
+            }
         }
     }
 }
