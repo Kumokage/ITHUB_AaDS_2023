@@ -29,39 +29,38 @@ public class PokemonTree
     }
     public void Add(Pokemon pokemon)
     {
-
-        if (_root == null)
+    if (_root == null)
+    {
+        _root = new Node(pokemon,null,null,null);
+    }
+    else
+    {
+        Node buff = _root;
+        while (buff.right!=null&&buff.left!=null)
         {
-            _root = new Node(pokemon,null,null,null);
-        }
-        else
-        {
-            Node buff = _root;
-            while (buff.right!=null&&buff.left!=null)
+            if(buff.value.CompareTo(pokemon.Name)==1)
             {
-                if(buff.value.CompareTo(pokemon.Name)==1)
-                {
-                    buff.right = buff;
-                }
-                else if(buff.value.CompareTo(pokemon.Name) == -1)
-                {
-                    buff.left = buff;
-                }
-                else
-                {
-                    throw new ArgumentException("такой покемончи уже есть");
-                }
+                buff = buff.right;
             }
-            if (pokemon.Name.CompareTo(buff.value) == 1)
+            else if(buff.value.CompareTo(pokemon.Name) == -1)
             {
-                buff.right = new Node(pokemon, null, null,buff);
+                buff = buff.left ;
             }
             else
             {
-                buff.left = new Node(pokemon, null, null,buff);
+                throw new ArgumentException("такой покемончи уже есть");
             }
         }
-        ++_sizik;
+        if (pokemon.Name.CompareTo(buff.value) == 1)
+        {
+            buff.right = new Node(pokemon, null, null,buff);
+        }
+        else
+        {
+            buff.left = new Node(pokemon, null, null,buff);
+        }
+    }
+    ++_sizik;
     }
     public Pokemon Search(string name)
     {
@@ -72,19 +71,23 @@ public class PokemonTree
             {
                 if (buff.value.CompareTo(name) == 1)
                 {
-                    buff.right = buff;
+                    buff = buff.right ;
                 }
                 else if (buff.value.CompareTo(name) == -1)
                 {
-                    buff.left = buff;
+                    buff = buff.left;
                 }
-                else if(buff.value.CompareTo(name) == 0)
+                else if (buff.value.CompareTo(name) == 0)
                 {
                     return buff.pokemon;
                 }
             }
+            throw new ArgumentException("покемончи не нашёуся");           
         }
-        throw new ArgumentException("покемончи не нашёуся");
+        else
+        {
+            throw new ArgumentException("покемончи не нашёуся");
+        }     
     }
     public Pokemon Delete(string name)
     {
@@ -95,11 +98,11 @@ public class PokemonTree
             {
                 if (buff.value.CompareTo(name) == 1)
                 {
-                    buff.right = buff;
+                    buff = buff.right;
                 }
                 else if (buff.value.CompareTo(name) == -1)
                 {
-                    buff.left = buff;
+                    buff = buff.left;
                 }
                 else if (buff.value.CompareTo(name) == 0)
                 {
@@ -123,7 +126,7 @@ public class PokemonTree
     }
     public void Balance()
     {
-
+        throw new NotImplementedException();
     }
     public int Size
     {
