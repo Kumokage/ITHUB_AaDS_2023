@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace PokemonGame
@@ -25,6 +26,11 @@ namespace PokemonGame
                 if (right is not null)
                     size += right.size;
             }
+
+            public override string ToString()
+            {
+                return pokemon.Name;
+            }
         }
 
         private Node? root;
@@ -48,23 +54,24 @@ namespace PokemonGame
             Node parent = root;
             while (true)
             {
-                if(node.pokemon.Name.CompareTo(parent.pokemon.Name) > 0)
+                bool toBreak = false;
+                if(node.pokemon.Name.CompareTo(parent.pokemon.Name) < 0)
                 {
                     if (parent.left == null)
                     {
                         parent.left = node;
                         node.parent = parent;
-                        return;
+                        break;
                     }
                     parent = parent.left;
                 }
-                else if(node.pokemon.Name.CompareTo(parent.pokemon.Name) < 0)
+                else if(node.pokemon.Name.CompareTo(parent.pokemon.Name) > 0)
                 {
                     if (parent.right == null)
                     {
                         parent.right = node;
                         node.parent = parent;
-                        return;
+                        break;
                     }
                     parent = parent.right;
                 }
@@ -72,14 +79,15 @@ namespace PokemonGame
                 {
                     throw new Exception("Покемон с этим именем уже есть в дереве");
                 }
-                Node bufParent = node;
-                while (bufParent is not null)
-                {
-                    bufParent.size = 1;
-                    if (bufParent.right is not null) bufParent.size += bufParent.right.size;
-                    if (bufParent.left is not null) bufParent.size += bufParent.left.size;
-                    bufParent = bufParent.parent;
-                }
+            }
+            node.size = 1;
+            Node bufParent = node;
+            while (bufParent is not null)
+            {
+                bufParent.size = 1;
+                if (bufParent.right is not null) bufParent.size += bufParent.right.size;
+                if (bufParent.left is not null) bufParent.size += bufParent.left.size;
+                bufParent = bufParent.parent;
             }
         }
 
@@ -268,6 +276,45 @@ namespace PokemonGame
         public void Balance()
         {
             Balance(root);
+        }
+
+        private Node[] GetTreeInWidth()
+        {
+            if (root is null)
+                throw new Exception("Дерево пусто");
+
+            Node[] array = new Node[root.size];
+
+            array[0] = root;
+            int parent = 0;
+            for (int i = 1; i < root.size;)
+            {
+                if(array[parent].left is not null)
+                {
+                    array[i] = array[parent].left;
+                    i++;
+                }
+                if (array[parent].right is not null)
+                {
+                    array[i] = array[parent].right;
+                    i++;
+                }
+                parent++;
+            }
+            return array;
+        }
+
+        public override string ToString()
+        {
+            Node[] nodes = GetTreeInWidth();
+            string pokemons = "";
+
+            foreach(Node node in nodes)
+            {
+                pokemons += node.ToString() + " ";
+            }
+
+            return pokemons;
         }
 
         private void Balance(Node mainNode)

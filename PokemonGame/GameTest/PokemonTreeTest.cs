@@ -87,4 +87,26 @@ public class PokemonTreeTest
         Pokemon deleted_pokemon = tree.Delete(collection[TEST_TREE_SIZE / 2].Name);
         Assert.ThrowsException<ArgumentException>(() => tree.Search(deleted_pokemon.Name));
     }
+
+    [TestMethod]
+    public void TestToString()
+    {
+        PokemonTree tree = new();
+        Array.Sort(collection, (Pokemon x, Pokemon y) => x.Name.CompareTo(y.Name));
+
+        for (int i = 1; i < 8; i++)
+        {
+            Debug.WriteLine(collection[i].Name);
+        }
+
+        tree.Add(collection[3]);
+        tree.Add(collection[1]);
+        tree.Add(collection[6]);
+        tree.Add(collection[2]);
+        tree.Add(collection[5]);
+        tree.Add(collection[7]);
+        tree.Add(collection[4]);
+
+        Assert.AreEqual(tree.ToString(), "Arcanine Alakazam Blastoise Arbok Bellsprout Bulbasaur Beedrill ");
+    }
 }
