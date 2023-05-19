@@ -1,11 +1,11 @@
-name: Task4 tests
+name: PokemonGame Tests
 
 on: 
   pull_request:
     branches:
       - 'master'
     paths:
-      - ./Tasks/Task4/**.cs
+      - '**/PokemonGame/**'
 
 jobs:
   build:
@@ -22,11 +22,11 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        working-directory: ./Tasks/Task4
+        working-directory: ./PokemonGame
         run: dotnet restore
       - name: Build
-        working-directory: ./Tasks/Task4
+        working-directory: ./PokemonGame
         run: dotnet build --configuration Release --no-restore
       - name: Test
-        working-directory: ./Tasks/Task4
+        working-directory: ./PokemonGame
         run: dotnet test --no-restore --verbosity normal

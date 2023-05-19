@@ -1,4 +1,4 @@
-﻿using PokemonGame;
+using PokemonGame;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using System.Diagnostics;
@@ -83,6 +83,7 @@ public class PokemonTreeTest
         {
             tree.Add(collection[i]);
         }
+        
         Pokemon deleted_pokemon = tree.Delete(collection[TEST_TREE_SIZE / 2].Name);
         Assert.ThrowsException<ArgumentException>(() => tree.Search(deleted_pokemon.Name));
     }
