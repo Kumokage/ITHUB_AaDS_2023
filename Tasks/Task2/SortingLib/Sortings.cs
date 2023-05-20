@@ -19,7 +19,7 @@ namespace SortingLib
 
                     if (order == Order.ASC)
                     {
-                        if (arr[i].CompareTo(arr[i + 1]) > 0)
+                        if (arr[i].CompareTo(arr[i + 1]) < 0)
                         {
                             string temp = arr[i + 1];
                             arr[i + 1] = arr[i];
@@ -30,7 +30,7 @@ namespace SortingLib
                     }
                     else if (order == Order.DESC)
                     {
-                        if (arr[i].CompareTo(arr[i + 1]) < 0)
+                        if (arr[i].CompareTo(arr[i + 1]) > 0)
                         {
                             string temp = arr[i + 1];
                             arr[i + 1] = arr[i];
@@ -57,7 +57,7 @@ namespace SortingLib
                 {
                     if (order == Order.ASC)
                     {
-                        if (arr[i].CompareTo(arr[min]) > 0)
+                        if (arr[i].CompareTo(arr[min]) < 0)
                         {
                             min = i;
 
@@ -66,7 +66,7 @@ namespace SortingLib
                     }
                     else if (order == Order.DESC)
                     {
-                        if (arr[i].CompareTo(arr[min]) < 0)
+                        if (arr[i].CompareTo(arr[min]) > 0)
                         {
                             min = i;
 
@@ -96,7 +96,7 @@ namespace SortingLib
                     int minI = i - 1;
                     if (order == Order.ASC)
                     {
-                        while (minI >= 0 && arr[minI].CompareTo(min) > 0)
+                        while (minI >= 0 && arr[minI].CompareTo(min) < 0)
                         {
                             arr[minI + 1] = arr[minI];
                             minI--;
@@ -108,7 +108,7 @@ namespace SortingLib
                     }
                     else if (order == Order.DESC)
                         {
-                            while (minI >= 0 && arr[minI].CompareTo(min) < 0)
+                            while (minI >= 0 && arr[minI].CompareTo(min) > 0)
                             {
                                 arr[minI + 1] = arr[minI];
                                 minI--;
@@ -126,52 +126,130 @@ namespace SortingLib
 
         public static void MergeSort(ref string[] arr, Order order)
         {
-            throw new NotImplementedException();
+            
+
+            string[] buf = new string[arr.Length];
+            Merge(ref arr, ref buf, 0, arr.Length - 1, order);
         }
-        static void Merge(int[] a, int l, int m, int r)
+        static void Merge(ref string[] arr, ref string[] buf, int l, int r, Order order)
         {
-            int i, j, k;
+            if (l >= r)
+                return;
 
-            int n1 = m - l + 1;
-            int n2 = r - m;
+        
+            int m = (l + r) / 2;
+            Merge(ref arr, ref buf, l, m, order);
+            Merge(ref arr, ref buf, m + 1, r, order);
 
-            int[] left = new int[n1+1];
-            int[] right = new int[n2+1];
-
-            for(i=0; i < n1; i++)
+            
+            int k = l;
+            for (int i = l, j = m + 1; i <= m || j <= r;)
             {
-                left[i] = a[l+i];
-            }
-
-            for (j = 1; j <= n2; j++)
-            {
-                right[j-1] = a[m+j];
-            }
-
-            left[n1] = int.MaxValue;
-            right[n2] = int.MaxValue;
-
-            i = 0;
-            j = 0;
-
-            for(k=l; k <= r; k++)
-            {
-                if(left[i] < right[j])
+                if (order == Order.ASC)
                 {
-                    a[k]=left[i];
-                    i = i + 1;
+
+
+
+                    if (j > r || (i <= m && string.Compare(arr[i], arr[j]) > 0))
+                    {
+                        buf[k] = arr[i];
+                        ++i;
+                    }
+                    else
+                    {
+                        buf[k] = arr[j];
+                        ++j;
+                    }
+
+                    ++k;
                 }
                 else
                 {
-                    a[k]=right[j];
-                    j = j + 1;
+                    if (j > r || (i <= m && string.Compare(arr[i], arr[j]) < 0))
+                    {
+                        buf[k] = arr[i];
+                        ++i;
+                    }
+                    else
+                    {
+                        buf[k] = arr[j];
+                        ++j;
+                    }
+
+                    ++k;
                 }
             }
+
+            for (int i = l; i <= r; ++i) {
+                arr[i] = buf[i];
+            }
         }
+        
 
         public static void QuickSort(ref string[] arr, Order order)
         {
-            throw new NotImplementedException();
+            
+           QuickSort(ref arr, 0, arr.Length -1, order);
+         
         }
+
+        public static string[] QuickSort(ref string[] arr,  int l, int r, Order order)
+        {
+
+            int i = l;
+            int j = r;
+            string pivot = arr[l];
+
+            while (i <= j)
+            {
+                if (order == Order.DESC)
+                {
+
+
+                    while (string.Compare(arr[i], pivot) < 0)
+                    {
+                        i++;
+                    }
+                    while (string.Compare(arr[j], pivot) > 0)
+                    {
+                        j--;
+                    }
+                }
+                else
+                {
+                    while (string.Compare(arr[i], pivot) > 0)
+                    {
+                        i++;
+                    }
+                    while (string.Compare(arr[j], pivot) < 0)
+                    {
+                        j--;
+                    }
+
+
+                }
+
+                if (i <= j)
+                {
+                    string temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                    i++;
+                    j--;
+                }
+            }
+
+            if (l < j)
+            {
+                QuickSort(ref arr, l, j, order);
+                
+            }
+
+            if (i < r)
+                QuickSort(ref arr, i, r, order);
+            return arr;
+        }
+
+         
     }
 }
