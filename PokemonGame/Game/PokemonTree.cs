@@ -119,7 +119,9 @@ public class PokemonTree
         }
         else
         {
+            Pokemon poki;
             Node buff = _root;
+            Node? buff2;
             bool flag = true;
             while (flag)
             {
@@ -147,43 +149,56 @@ public class PokemonTree
                 }
                 else if(String.Compare(buff.value, name) == 0)
                 {
+                    poki = buff.pokemon;
                     if(buff.parent == null)
                     {
-                        
+                        _root = null;
                     }
                     else
                     {
                      if(buff.right!= null&& buff.left==null)
                     {
-                        if(buff.parent.right == buff)
-                        {
-                           buff.parent.right = null;     
-                        }
-                        else
-                        {
-                            buff.parent.left = null;
-                        }
+                        buff.value = buff.right.value;
+                            buff.pokemon = buff.right.pokemon;
+                            buff.right = buff.right.right;
                     }
                     if(buff.right== null&& buff.left!=null)
                     {
-
+                        buff.value = buff.left.value;
+                            buff.pokemon = buff.left.pokemon;
+                            buff.left = buff.left.left;
                     }
                     if(buff.right == null&& buff.left == null)
                     {
                         if(buff.parent.right == buff)
                         {
-                           buff.parent.right = null;     
+                           buff.parent.right = null;
+                           return buff.pokemon;     
                         }
-                        else
+                        else if(buff.parent.left == buff)
                         {
                             buff.parent.left = null;
+                            return buff.pokemon;
                         }
                     }
                     if(buff.right!= null&& buff.left!=null)
                     {
-
+                        buff2 = buff.right;
+                        while(buff2.left != null)
+                        {
+                            buff2 = buff2.left;
+                        }
+                        buff.pokemon = buff2.pokemon;
+                        if(buff2 == buff2.parent.left)
+                        {
+                            buff2.parent.left = null;
+                        }
+                        else if(buff2 == buff2.parent.right)
+                        {
+                            buff2.parent.right = null;
+                        }
                     }
-                    return buff.pokemon;
+                    return poki;
                     }
                 }
             }
