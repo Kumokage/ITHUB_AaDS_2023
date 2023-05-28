@@ -53,7 +53,7 @@ namespace ListTask
                 return null;
             }
         }
-
+         
         public bool Empty()
         {
             if (head != null)
