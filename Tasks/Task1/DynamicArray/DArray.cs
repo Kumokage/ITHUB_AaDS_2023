@@ -96,7 +96,7 @@ public class DArray : Array
         }
 
         --_count;
-    }
+    } 
 
     public override void Remove()
     {
