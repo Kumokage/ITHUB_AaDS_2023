@@ -283,7 +283,7 @@ namespace ListTask
         {
         return;
         }
-            Node? newNode = head;
+            Node newNode = head;
             int[] array = new int[size];
             int[] buff = new int[size];
 
