@@ -1,5 +1,6 @@
 ﻿
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 
 namespace PokemonGame
@@ -275,6 +276,7 @@ namespace PokemonGame
 
         public void Balance()
         {
+            List<Node> nodes = new List<Node>();
             Balance(root);
         }
 
@@ -304,17 +306,44 @@ namespace PokemonGame
             return array;
         }
 
-        public override string ToString()
+        public string ToString(bool inWidth)
         {
-            Node[] nodes = GetTreeInWidth();
+            if (root is null)
+                throw new Exception("Дерево пусто");
+
+            Node[] nodes;
+
+            if(inWidth) nodes = GetTreeInWidth();
+            else nodes = GetTreeInDepth();
+
             string pokemons = "";
 
             foreach(Node node in nodes)
             {
-                pokemons += node.ToString() + " ";
+                if(node is not null) pokemons += node.ToString() + " ";
             }
 
             return pokemons;
+        }
+
+        private Node[] GetTreeInDepth()
+        {
+            Debug.WriteLine(root.size);
+            Node[] nodes = new Node[root.size];
+            int i = 0;
+            GetTreeInDepth(root,nodes, ref i);
+
+            return nodes;
+        }
+
+        private void GetTreeInDepth(Node parent, Node[] array, ref int i)
+        {
+            if (parent is null) return;
+
+            GetTreeInDepth(parent.left, array, ref i);
+            GetTreeInDepth(parent.right, array, ref i);
+
+            array[i++] = parent;
         }
 
         private void Balance(Node mainNode)
@@ -322,59 +351,116 @@ namespace PokemonGame
             if (mainNode is null || mainNode.size < 3)
                 return;
 
-            Node? newNode = null;
-
-            while (mainNode.right is null || mainNode.left is null || Math.Abs(mainNode.left.size - mainNode.right.size) > 1)
+            Node? newMainNode = null;
+            while (!(mainNode.right is null && mainNode.left is null) && ((mainNode.left is not null && mainNode.right is null) || (mainNode.left is null && mainNode.right is not null) || Math.Abs(mainNode.left.size - mainNode.right.size) > 1))
             {
-                if (mainNode.right is null || mainNode.left.size > mainNode.right.size)
+                if (mainNode.right is null && mainNode.left is not null || (mainNode.right is not null && mainNode.left is not null && mainNode.left.size - mainNode.right.size > 1))
                 {
+                    newMainNode = mainNode.left;
 
-                    newNode = mainNode.left;
-                    while (newNode.right is not null)
+                    while (newMainNode.right is not null)
                     {
-                        newNode = newNode.right;
+                        newMainNode = newMainNode.right;
                     }
 
-                    newNode.right = mainNode;
-                    newNode.left = mainNode.left;
+                    if (newMainNode.pokemon.Name != mainNode.left.pokemon.Name)
+                    {
+                        if (newMainNode.parent.right.pokemon.Name == newMainNode.pokemon.Name)
+                        {
+                            if (newMainNode.left is not null)
+                            {
+                                newMainNode.parent.right = newMainNode.left;
+                                newMainNode.left.parent = newMainNode.parent;
+                            }
+                            else
+                            {
+                                newMainNode.parent.right = null;
+                            }
+                        }
+                        else
+                        {
+                            if (newMainNode.left is not null)
+                            {
+                                newMainNode.parent.left = newMainNode.right;
+                                newMainNode.left.parent = newMainNode.parent;
+                            }
+                            else
+                            {
+                                newMainNode.parent.left = null;
+                            }
+                        }
+                        newMainNode.left = mainNode.left;
+                    }
+                    newMainNode.right = mainNode;
+                    if (newMainNode.right is not null)
+                        newMainNode.right.parent = newMainNode;
+                    if (newMainNode.left is not null)
+                        newMainNode.left.parent = newMainNode;
                     mainNode.left = null;
                 }
-                else if (mainNode.left is null || mainNode.left.size < mainNode.right.size)
+                else if (mainNode.left is null && mainNode.right is not null || (mainNode.right is not null && mainNode.left is not null && mainNode.right.size - mainNode.left.size > 1))
                 {
-                    newNode = mainNode.right;
-                    while (newNode.right is not null)
+                    newMainNode = mainNode.right;
+
+                    while (newMainNode.left is not null)
                     {
-                        newNode = newNode.left;
+                        newMainNode = newMainNode.left;
                     }
 
-                    newNode.right = mainNode.right;
-                    newNode.left = mainNode;
+                    if (newMainNode.pokemon.Name != mainNode.right.pokemon.Name)
+                    {
+                        if (newMainNode.parent.left.pokemon.Name == newMainNode.pokemon.Name)
+                        {
+                            if (newMainNode.right is not null)
+                            {
+                                newMainNode.parent.left = newMainNode.right;
+                                newMainNode.right.parent = newMainNode.parent;
+                            }
+                            else
+                            {
+                                newMainNode.parent.left = null;
+                            }
+                        }
+                        else
+                        {
+                            if (newMainNode.right is not null)
+                            {
+                                newMainNode.parent.right = newMainNode.left;
+                                newMainNode.right.parent = newMainNode.parent;
+                            }
+                            else
+                            {
+                                newMainNode.parent.right = null;
+                            }
+                        }
+                        newMainNode.right = mainNode.right;
+                    }
+                    
+                    newMainNode.left = mainNode;
+                    if (newMainNode.right is not null)
+                        newMainNode.right.parent = newMainNode;
+                    if (newMainNode.left is not null)
+                        newMainNode.left.parent = newMainNode;
                     mainNode.right = null;
                 }
 
-                if (root.pokemon.Name != newNode.pokemon.Name) 
+                if (root.pokemon.Name == mainNode.pokemon.Name) 
                 { 
-                    root = newNode;
-                    newNode.parent = null;
+                    root = newMainNode;
+                    newMainNode.parent = null;
                 }
                 else
                 {
-                    newNode.parent = mainNode.parent;
+                    newMainNode.parent = mainNode.parent;
                 }
-
-                mainNode.size = mainNode.right.size + mainNode.left.size + 1;
-
-                Node bufParent = newNode;
-                while (bufParent is not null)
-                {
-                    bufParent.size = 1;
-                    if (bufParent.right is not null) bufParent.size += bufParent.right.size;
-                    if (bufParent.left is not null) bufParent.size += bufParent.left.size;
-                    bufParent = bufParent.parent;
-                }
+                mainNode.size = (mainNode.right is null ? 0 : mainNode.right.size) + (mainNode.left is null ? 0 : mainNode.left.size) + 1;
+                newMainNode.size = (newMainNode.right is null ? 0 : newMainNode.right.size) + (newMainNode.left is null ? 0 : newMainNode.left.size) + 1;
+                mainNode = newMainNode;
             }
-            Balance(newNode.right);
-            Balance(newNode.left);
+            
+            if (mainNode is null) return;
+            Balance(mainNode.right);
+            Balance(mainNode.left);
         }
     }
 }

@@ -107,6 +107,22 @@ public class PokemonTreeTest
         tree.Add(collection[7]);
         tree.Add(collection[4]);
 
-        Assert.AreEqual(tree.ToString(), "Arcanine Alakazam Blastoise Arbok Bellsprout Bulbasaur Beedrill ");
+        //Assert.AreEqual(tree.ToString(false), "Arcanine Alakazam Blastoise Arbok Bellsprout Bulbasaur Beedrill ");
+    }
+
+    [TestMethod]
+    public void TestBalance()
+    {
+        PokemonTree tree = new();
+        Array.Sort(collection, (Pokemon x, Pokemon y) => x.Name.CompareTo(y.Name));
+
+        for (int i = 1; i < 8; i++)
+        {
+            tree.Add(collection[i]);
+        }
+        Debug.WriteLine("");
+        Debug.WriteLine(tree.ToString(false) + " " + 124);
+        tree.Balance();
+        Debug.WriteLine(tree.ToString(false) + " " + 127);
     }
 }

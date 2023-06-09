@@ -3,7 +3,6 @@ namespace GameTest;
 
 using PokemonGame;
 
-
 [TestClass]
 public class PokemonTest
 {

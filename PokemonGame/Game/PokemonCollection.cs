@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace PokemonGame
 {
+
     public class Node
     {
         public Node? next;
