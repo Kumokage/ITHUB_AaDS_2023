@@ -279,7 +279,49 @@ namespace ListTask
 
         public void Sort()
         {
-            
+        if (size == 0)
+        {
+        return;
+        }
+            Node? newNode = head;
+            int[] array = new int[size];
+            int[] buff = new int[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                buff[i] = newNode.value;
+                newNode = newNode.next;
+            }
+            Sort(ref array,ref buff, 0, size - 1);
+        }
+        private void Sort(ref int[]arr,ref int[]buff,int l, int r)
+        {
+            if(l>=r)
+            {
+                return;
+            }
+        int m = (l + r) / 2;
+        Sort(ref arr, ref buff, l, m);
+        Sort(ref arr, ref buff, m + 1, r);
+
+        // Merge
+        int k = l;
+        for (int i = l, j = m + 1; i <= m || j <= r; ) {
+            if (j > r || (i <= m && arr[i] < arr[j])) {
+                arr[k] = buff[i];
+                //arr[i] = buff[k];
+                ++i;
+            }
+            else {
+                buff[k] = arr[j];
+                //arr[j] = buff[k];
+                ++j;
+            }
+            ++k;
+        }
+        for (int i = l; i <= r; ++i) {
+            arr[i] = buff[i];
+        }
         }
 
         public int this[int index]
