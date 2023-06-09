@@ -289,10 +289,12 @@ namespace ListTask
 
             for (int i = 0; i < size; i++)
             {
+                array[i] = newNode.value;
                 buff[i] = newNode.value;
                 newNode = newNode.next;
             }
             Sort(ref array,ref buff, 0, size - 1);
+
         }
         private void Sort(ref int[]arr,ref int[]buff,int l, int r)
         {
@@ -300,6 +302,7 @@ namespace ListTask
             {
                 return;
             }
+            Node newNode = head;
         int m = (l + r) / 2;
         Sort(ref arr, ref buff, l, m);
         Sort(ref arr, ref buff, m + 1, r);
@@ -308,19 +311,18 @@ namespace ListTask
         int k = l;
         for (int i = l, j = m + 1; i <= m || j <= r; ) {
             if (j > r || (i <= m && arr[i] < arr[j])) {
-                arr[k] = buff[i];
-                //arr[i] = buff[k];
+                buff[i] = arr[k];
                 ++i;
             }
             else {
-                buff[k] = arr[j];
-                //arr[j] = buff[k];
+                buff[j] = arr[i];
                 ++j;
             }
             ++k;
         }
         for (int i = l; i <= r; ++i) {
-            arr[i] = buff[i];
+            newNode.value = buff[i];
+            newNode = newNode.next;
         }
         }
 
