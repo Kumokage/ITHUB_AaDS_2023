@@ -279,7 +279,7 @@ namespace ListTask
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            
         }
 
         public int this[int index]
