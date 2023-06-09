@@ -184,57 +184,34 @@ namespace ListTask
 
         public void Swap(List other_list)
         {
-            List buf = new List();
-            Node n = head;
-            Node nb = other_list.head;
-            for (int i = 0; i < size; i++)
-            {
-                if (head == null)
-                {
-                    buf.PushFront(n.value);
-                }
-                if (n.next != null)
-                {
-                    buf.PushBack(n.value);
-                    n = n.next;
-                }
-            }
-            n = head;
-            for (int i = 0; i < size; i++)
-            {
-                if (n.next!= null)
-                {
-                    n = nb;
-                    n = n.next;
-                    nb = n.next;
-                }
-            }
-            n = buf.head;
-            nb = other_list.head;
-            for (int i = 0; i < size; i++)
-            {
-                if (n.next != null)
-                {
-                    nb = n;
-                    nb = nb.next;
-                    n = n.next;
-                }
-            }
+         //   Node n = head;
+          //  Node m = tail;
+          //  head = m;
+           // tail = n;
 
+                Node n = head;
+                Node nb = tail;
 
-            /*  other_list.Clear();
-              for (int i = 0; i < size; i++)
-              {
-                  other_list.PushBack(this[i]);
-              }
+                List buf = new List();
 
-              Clear();
-              for (int i = 0; i < buf.Size(); i++)
-              {
-                  PushBack(buf[i]);
-              }
-            */
+                buf.head = other_list.head;
+                buf.tail = other_list.tail;
 
+            
+                other_list.head = head;
+                other_list.tail = tail;
+
+                head = buf.head;
+                tail = buf.tail;
+
+             /*      if (other_list.size != size)
+                   {
+                int bufSize = 0;
+                buf.size = size;
+                size = other_list.size;
+                other_list.size = bufSize;
+
+                   }*/
         }
 
         public void Remove(int value)
@@ -331,48 +308,28 @@ namespace ListTask
 
         public void Sort()
         {
-            Node M = head;
-            int[] arr = new int[size];
-            for (int i = 0; i < size; ++i)
-            {
-                if (M.next != tail)
-                {
-                    arr[i] = M.value;
-                    M = M.next;
-                }
-                else
-                {
-                    M = tail;
-                    arr[i] = tail.value; 
-                }
-            }
-            var n = arr.Length;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
-                {
-                    if (arr[j] > arr[j + 1])
+            Node start = head;
+            Node n = head;
+            Node minNode = head;
+            while(start.next != null)
+			{
+                while (n.next != null) 
+                { 
+                  if (minNode.value > n.value) 
                     {
-                        var tempVar = arr[j];
-                        arr[j] = arr[j + 1];
-                        arr[j + 1] = tempVar;
+                        minNode = n;
                     }
+                    n = n.next;
                 }
-            }
-            M = head;
-            for (int i = 0; i < size; ++i)
-            {
-                if (M.next != tail)
-                {
-                   M.value = arr[i];
-                    M = M.next;
-                }
-                else
-                {
-                    M = tail;
-                    tail.value = arr[i];
-                }
-            }
+
+                int buf = start.value;
+                start.value = minNode.value;
+                minNode.value = buf;
+
+                start = start.next;
+                n = start;
+                minNode = start;
+			}
 
         }
 
