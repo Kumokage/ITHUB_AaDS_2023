@@ -1,9 +1,12 @@
+
 using System.Diagnostics;
+
 
 namespace PokemonGame;
 
 public class PokemonTree
 {
+
     class Node
     {
         private Node? left;
@@ -31,19 +34,30 @@ public class PokemonTree
         
         throw new NotImplementedException();
     }
+
+    public void Add(Pokemon pokemon)
+    {
+        throw new NotImplementedException();
+    }
+
+
     public Pokemon Search(string name)
     {
         throw new NotImplementedException();
     }
+
+
     public Pokemon Delete(string name)
     {
         throw new NotImplementedException();
     }
+
     public void Balance()
     {
         throw new NotImplementedException();
     }
     
+
 
 
 
