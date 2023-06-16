@@ -1,0 +1,32 @@
+name: PokemonGame Tests
+
+on: 
+  pull_request:
+    branches:
+      - 'master'
+    paths:
+      - '**/PokemonGame/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '6.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        working-directory: ./PokemonGame
+        run: dotnet restore
+      - name: Build
+        working-directory: ./PokemonGame
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        working-directory: ./PokemonGame
+        run: dotnet test --no-restore --verbosity normal
