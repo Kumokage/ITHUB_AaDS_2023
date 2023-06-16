@@ -2,29 +2,40 @@ namespace StackTask;
 
 public enum CardElement
 {
-
+    Water,
+    Fire,
+    Earth,
+    Air,
+    Light,
+    Darkness
 }
 
 public enum CardType
 {
-
+    Creature,
+    Spell,
+    InstantSpell,
+    Territory
 }
 
 public class Card
 {
-    CardElement element;
-    CardType type;
+    private CardElement element;
+    private CardType type;
 
-    public Card(CardElement elem, CardType type, string text, int prior)
+    public Card(CardElement element, CardType type, string text, int prior)
     {
-
+        this.element = element;
+        this.type = type;
+        Text = text;
+        Prior = prior;
     }
 
     public CardElement Element
     {
         get
         {
-            throw new NotImplementedException();
+            return element;
         }
     }
 
@@ -32,23 +43,17 @@ public class Card
     {
         get
         {
-            throw new NotImplementedException();
+            return type;
         }
     }
 
     public string Text
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get;
     }
 
     public int Prior
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
+        get;
     }
 }

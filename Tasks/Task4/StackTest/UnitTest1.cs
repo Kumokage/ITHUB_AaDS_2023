@@ -59,7 +59,7 @@ public class UnitTest1
     public void TestPush100()
     {
         CardStack stack = new();
-        for (int i = 0; i < 99; ++i)
+        for (int i = 0; i < 101; ++i)
         {
             stack.Push(new Card((CardElement)1, (CardType)1, $"Some{i}", 3));
         }
