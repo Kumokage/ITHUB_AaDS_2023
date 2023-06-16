@@ -274,58 +274,39 @@ namespace ListTask
                 }
                 buff = buff.next;
             }
-
         }
-
-        public void Sort()
-        {
+       public void Sort() {
         if (size == 0)
         {
         return;
         }
-            Node newNode = head;
-            int[] array = new int[size];
-            int[] buff = new int[size];
-
-            for (int i = 0; i < size; i++)
-            {
-                array[i] = newNode.value;
-                buff[i] = newNode.value;
-                newNode = newNode.next;
-            }
-            Sort(ref array,ref buff, 0, size - 1);
-
-        }
-        private void Sort(ref int[]arr,ref int[]buff,int l, int r)
+        Node newNode = head;
+        int [] arr = new int[size];
+        for(int i = 0; i<arr.Length;i++)
         {
-            if(l>=r)
-            {
-                return;
-            }
-            Node newNode = head;
-        int m = (l + r) / 2;
-        Sort(ref arr, ref buff, l, m);
-        Sort(ref arr, ref buff, m + 1, r);
-
-        // Merge
-        int k = l;
-        for (int i = l, j = m + 1; i <= m || j <= r; ) {
-            if (j > r || (i <= m && arr[i] < arr[j])) {
-                buff[i] = arr[k];
-                ++i;
-            }
-            else {
-                buff[j] = arr[i];
-                ++j;
-            }
-            ++k;
+            arr[i] = newNode.value;
+            newNode = newNode.next;
         }
-        for (int i = l; i <= r; ++i) {
-            newNode.value = buff[i];
+         for (int i = 0; i < arr.Length; ++i)
+                {
+                    for (int j = 0; j < arr.Length - i - 1; ++j)
+                    {
+                        if (arr[j + 1] < arr[j])
+                        {
+                            int buf = arr[j + 1];
+                            arr[j + 1] = arr[j];
+                            arr[j] = buf;
+                        }
+                    }
+                }
+        newNode = head;
+        for(int i = 0; i < size; i++)
+        {
+            newNode.value = arr[i];
             newNode = newNode.next;
         }
         }
-
+          
         public int this[int index]
         {
             get

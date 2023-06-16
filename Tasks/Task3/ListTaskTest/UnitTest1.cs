@@ -159,7 +159,7 @@ public class ListUnitTest
         int[] arr = new int[]{1, 7, 2, 4, 10, 4};
         List list = new List(arr);
         list.Sort();
-        for(int i = 0; i < 6; ++i) 
+        for(int i = 0; i < 5; ++i) 
         {
             Assert.IsTrue(list[i] <= list[i+1]);
         }
