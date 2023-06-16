@@ -1,12 +1,152 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace SortingLib
 {
     class Program 
     {
+        private const int N  = 1000;
+        private Random random = new Random();
+        
+        private string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        private string[] CreateRandomArr() {
+            string[] arr = new string[N];
+            for(int i = 0; i < N; ++i) {
+                arr[i] = RandomString(random.Next(1, 20));
+            }
+
+            return arr;
+        }
+        public void TestBubleSortASC()
+        {
+            string[] arr = CreateRandomArr();
+            
+            Sortings.BubleSort(ref arr, Order.ASC);
+
+            for(int i = 0; i < N - 1; ++i) 
+            {
+                
+            }
+        }
+
+    
+    public void TestBubleSortDESC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.BubleSort(ref arr, Order.DESC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+    
+    public void TestSelectSortASC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.SelectSort(ref arr, Order.ASC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+           
+        }
+    }
+
+    
+    public void TestSelectSortDESC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.SelectSort(ref arr, Order.DESC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+    
+    public void TestInsertSortASC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.InsertSort(ref arr, Order.ASC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+    
+    public void TestInsertSortDESC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.InsertSort(ref arr, Order.DESC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+   
+    public void TestMergeSortASC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.MergeSort(ref arr, Order.ASC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+    
+    public void TestMergeSortDESC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.MergeSort(ref arr, Order.DESC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
+
+    
+    public void TestQuickSortASC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.QuickSort(ref arr, Order.ASC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+           
+        }
+    }
+
+    
+    public void TestQuickSortDESC()
+    {
+        string[] arr = CreateRandomArr();
+        Sortings.QuickSort(ref arr, Order.DESC);
+
+        for(int i = 0; i < N - 1; ++i) 
+        {
+            
+        }
+    }
         public static void Main(string[] args)
         {
-            throw new NotImplementedException();
+            
+
+            
         }
     }
 }
+
