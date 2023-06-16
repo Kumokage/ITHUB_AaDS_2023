@@ -32,7 +32,7 @@ namespace SortingLib
 
         public static void QuickSort(ref string[] arr, Order order)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("0");
         }
     }
 }
