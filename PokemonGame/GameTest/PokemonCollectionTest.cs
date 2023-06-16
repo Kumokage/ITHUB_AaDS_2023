@@ -14,6 +14,7 @@ public class PokemonCollectionTest
     [TestMethod]
     public void PokemonColectionFindTest() {
         PokemonCollection collection = new("../../../../data/pokemon.csv");
+        
         var foundPokemon = collection.FindByName("Venusaur");
         Assert.AreEqual(625, foundPokemon.BaseTotal);
         Assert.AreEqual(PokemonType.grass, foundPokemon.Type1);

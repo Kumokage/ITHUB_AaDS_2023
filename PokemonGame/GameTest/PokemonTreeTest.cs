@@ -1,7 +1,9 @@
-namespace GameTest;
-
-using System.Globalization;
 using PokemonGame;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
+using System.Diagnostics;
+
+namespace GameTest;
 
 [TestClass]
 public class PokemonTreeTest
@@ -72,7 +74,7 @@ public class PokemonTreeTest
 
         Assert.ThrowsException<ArgumentException>(() => tree.Search("sdfasdfas"));
     }
-
+    
     [TestMethod]
     public void TestDelete()
     {
@@ -81,8 +83,46 @@ public class PokemonTreeTest
         {
             tree.Add(collection[i]);
         }
-
+        
         Pokemon deleted_pokemon = tree.Delete(collection[TEST_TREE_SIZE / 2].Name);
         Assert.ThrowsException<ArgumentException>(() => tree.Search(deleted_pokemon.Name));
+    }
+
+    [TestMethod]
+    public void TestToString()
+    {
+        PokemonTree tree = new();
+        Array.Sort(collection, (Pokemon x, Pokemon y) => x.Name.CompareTo(y.Name));
+
+        for (int i = 1; i < 8; i++)
+        {
+            Debug.WriteLine(collection[i].Name);
+        }
+
+        tree.Add(collection[3]);
+        tree.Add(collection[1]);
+        tree.Add(collection[6]);
+        tree.Add(collection[2]);
+        tree.Add(collection[5]);
+        tree.Add(collection[7]);
+        tree.Add(collection[4]);
+
+        //Assert.AreEqual(tree.ToString(false), "Arcanine Alakazam Blastoise Arbok Bellsprout Bulbasaur Beedrill ");
+    }
+
+    [TestMethod]
+    public void TestBalance()
+    {
+        PokemonTree tree = new();
+        Array.Sort(collection, (Pokemon x, Pokemon y) => x.Name.CompareTo(y.Name));
+
+        for (int i = 1; i < 8; i++)
+        {
+            tree.Add(collection[i]);
+        }
+        Debug.WriteLine("");
+        Debug.WriteLine(tree.ToString(false) + " " + 124);
+        tree.Balance();
+        Debug.WriteLine(tree.ToString(false) + " " + 127);
     }
 }
