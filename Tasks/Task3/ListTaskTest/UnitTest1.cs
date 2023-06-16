@@ -9,18 +9,18 @@ public class ListUnitTest
     [TestMethod]
     public void TestListIndexer()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         Assert.AreEqual(list[0], 1);
-        Assert.AreEqual(list[1], 2);
-        Assert.AreEqual(list[2], 3);
+        Assert.AreEqual(list[1], 7);
+        Assert.AreEqual(list[2], 2);
         Assert.AreEqual(list[3], 4);
     }
 
     [TestMethod]
     public void TestListFront()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         Assert.AreEqual(list.Front(), 1);
         list = new List();
@@ -30,7 +30,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListBack()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         Assert.AreEqual(list.Back(), 4);
         list = new List();
@@ -42,7 +42,7 @@ public class ListUnitTest
     {
         List list = new List();
         Assert.AreEqual(list.Empty(), true);
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         list = new List(arr);
         Assert.AreEqual(list.Empty(), false);
     }
@@ -52,7 +52,7 @@ public class ListUnitTest
     {
         List list = new List();
         Assert.AreEqual(list.Size(), 0);
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         list = new List(arr);
         Assert.AreEqual(list.Size(), 6);
     }
@@ -60,7 +60,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListClear()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         list.Clear();
         Assert.AreEqual(list.Empty(), true);
@@ -80,7 +80,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListPopBack()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         Assert.AreEqual(list.PopBack(), 4);
         Assert.AreEqual(list.PopBack(), 10);
@@ -100,7 +100,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListPopFront()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         Assert.AreEqual(list.PopFront(), 1);
         Assert.AreEqual(list.PopFront(), 7);
@@ -109,7 +109,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListResize()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         list.Resize(2);
         Assert.AreEqual(list[0], 1);
@@ -122,9 +122,9 @@ public class ListUnitTest
     [TestMethod]
     public void TestListSwap()
     {
-        int[] arr1 = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr1 = new int[] { 1, 7, 2, 4, 10, 4 };
         List list1 = new List(arr1);
-        int[] arr2 = new int[]{2, 4};
+        int[] arr2 = new int[] { 2, 4 };
         List list2 = new List(arr2);
         list1.Swap(list2);
         Assert.AreEqual(list1[0], 2);
@@ -134,7 +134,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListRemove()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
         list.Remove(4);
         Assert.AreEqual(list[3], 10);
@@ -145,7 +145,7 @@ public class ListUnitTest
     [TestMethod]
     public void TestListUnique()
     {
-        int[] arr = new int[]{1, 3, 7, 7, 4, 10, 4, 4, 4, 4};
+        int[] arr = new int[] { 1, 3, 7, 7, 4, 10, 4, 4, 4, 4 };
         List list = new List(arr);
         list.Unique();
         Assert.AreEqual(list[2], 7);
@@ -156,11 +156,12 @@ public class ListUnitTest
     [TestMethod]
     public void TestListSort()
     {
-        int[] arr = new int[]{1, 7, 2, 4, 10, 4};
+        int[] arr = new int[] { 1, 7, 2, 4, 10, 4 };
         List list = new List(arr);
-        for(int i = 0; i < 6; ++i) 
+        list.Sort();
+        for (int i = 0; i < 5; ++i)
         {
-            Assert.IsTrue(list[i] <= list[i+1]);
+            Assert.IsTrue(list[i] <= list[i + 1]);
         }
     }
 }
