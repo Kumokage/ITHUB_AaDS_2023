@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DynamicArray
 {
     class Program
     {
         static int N = 10;
-        static int[] n = new int[]{1000, 10000, 50000};
+        static int[] n = new int[] { 1000, 10000, 50000 };
 
         static Random rand = new Random(1);
 
-        public static DArray FillArr(int count) {
+        public static DArray FillArr(int count)
+        {
             DArray arr = new DArray(count);
-            
-            for (int i = 0; i < count; ++i) {
+
+            for (int i = 0; i < count; ++i)
+            {
                 arr[i] = rand.Next(100);
             }
 
@@ -24,11 +28,13 @@ namespace DynamicArray
         {
             string[] results = new string[n.Length];
             Stopwatch stopWatch = new Stopwatch();
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
+            for (int current_n = 0; current_n < n.Length; ++current_n)
+            {
+                DArray arr = FillArr(n[current_n]);
 
                 long count = 0;
-                for( int i = 0; i < N; ++i) {
+                for (int i = 0; i < N; ++i)
+                {
                     int index = rand.Next(n[current_n] + 1);
                     int value = arr[index];
                     stopWatch.Start();
@@ -49,12 +55,14 @@ namespace DynamicArray
         public static string[] TestBinarySearchAlgo()
         {
             string[] results = new string[n.Length];
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
+            for (int current_n = 0; current_n < n.Length; ++current_n)
+            {
+                DArray arr = FillArr(n[current_n]);
                 arr.Sort();
 
                 long count = 0;
-                for( int i = 0; i < N; ++i) {
+                for (int i = 0; i < N; ++i)
+                {
                     int index = rand.Next(n[current_n] + 1);
                     int value = arr[index];
                     Stopwatch stopWatch = new Stopwatch();
@@ -73,11 +81,13 @@ namespace DynamicArray
         public static string[] TestSortAlgo()
         {
             string[] results = new string[n.Length];
-            for(int current_n = 0; current_n < n.Length; ++current_n){
-                DArray arr =  FillArr(n[current_n]);
+            for (int current_n = 0; current_n < n.Length; ++current_n)
+            {
+                DArray arr = FillArr(n[current_n]);
 
                 long count = 0;
-                for( int i = 0; i < N; ++i) {
+                for (int i = 0; i < N; ++i)
+                {
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
                     arr.Sort();
@@ -98,10 +108,11 @@ namespace DynamicArray
             string[] resultsSort = TestSortAlgo();
 
             string buf = "n;LinearSearch;BinarySearch;Sort\n";
-            for (int i = 0; i < n.Length; ++i) {
+            for (int i = 0; i < n.Length; ++i)
+            {
                 buf += $"{n[i]};{resultsLinear[i]};{resultsBinarySearch[i]};{resultsSort[i]}\n";
             }
-
+           
             File.WriteAllText("../AlgoTimeResults.csv", buf);
         }
     }
