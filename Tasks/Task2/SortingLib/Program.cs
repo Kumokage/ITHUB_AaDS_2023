@@ -6,7 +6,7 @@ namespace SortingLib
     {
         public static void Main(string[] args)
         {
-            throw new NotImplementedException();
+         Console.WriteLine("hello world000");
         }
     }
 }
