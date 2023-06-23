@@ -1,3 +1,4 @@
+using System.IO.Enumeration;
 using System;
 namespace SortingLib 
 {
@@ -12,7 +13,12 @@ namespace SortingLib
     {
         public static void BubleSort(ref string[] arr, Order order) 
         {
-            throw new NotImplementedException();
+           int n = arr.Length;
+           do
+           {
+            swapped = false;
+            for(int i = 0; i < n -1; i++)
+           }
         }
 
         public static void SelectSort(ref string[] arr, Order order)
